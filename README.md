@@ -1,86 +1,99 @@
 # Elec_cabinet_RML63
 
-RML63II 六轴机械臂与电气柜基础仿真工作空间，提供 **Gazebo Classic 11 / ROS 2 Humble** 和 **MuJoCo** 两套运行入口，用于模型展示、关节控制、元件交互及接触仿真开发。
+English | [简体中文](README-zh.md)
 
-当前仅保留透明玻璃柜门版本。项目处于仿真原型阶段：基础运行与界面操作已验证，机械臂接触操作的稳定性、力控制和传感器真实性仍存在限制，详见[已知问题与限制](#已知问题与限制)。
+A basic simulation workspace for the RML63II six-axis arm and an electrical cabinet, with **Gazebo Classic 11 / ROS 2 Humble** and **MuJoCo** entry points for model visualization, joint control, and component interaction demonstrations.
 
-## 目录
+Only the transparent glass-door cabinet is included. The cabinet and its components provide a visual and structural analogy to a real cabinet. Their intended use is appearance, layout, and structural reference. **The simulated force feedback does not match real operation and has no value as a reference for real operating forces or mechanical behavior.** See [Known issues and limitations](#known-issues-and-limitations) before using the models.
 
-- [项目内容](#项目内容)
-- [环境与依赖部署](#环境与依赖部署)
-- [运行方法](#运行方法)
-- [修改与重建模型](#修改与重建模型)
-- [已知问题与限制](#已知问题与限制)
+## Scene overviews
 
-## 项目内容
+Gazebo Classic: the complete arm and cabinet scene with the transparent door.
 
-| 模块 | 内容 |
+![Gazebo Classic scene overview](docs/gazebo_overview.png)
+
+MuJoCo: the complete arm and cabinet scene with the transparent door.
+
+![MuJoCo scene overview](docs/mujoco_overview.png)
+
+## Contents
+
+- [Scene overviews](#scene-overviews)
+- [Included modules](#included-modules)
+- [Environment and dependencies](#environment-and-dependencies)
+- [Running the simulations](#running-the-simulations)
+- [Editing and regenerating models](#editing-and-regenerating-models)
+- [Known issues and limitations](#known-issues-and-limitations)
+
+## Included modules
+
+| Module | Contents |
 | --- | --- |
-| 机器人 | RML63II 六轴机械臂、EG2-4C2 夹爪、腕部 RGB-D 相机模型、工具法兰、指尖与工作台底座 |
-| 电柜 | 柜体、透明玻璃柜门、铰链、门锁、按钮和把手 |
-| 柜内元件 | 24 块压板、3 个转换开关、10 个空气开关、3 个复归按钮、10 个指示灯 |
-| 标识 | 40 块元件编号铭牌；空气开关外壳的产品贴纸、商标及参数文字已移除，编号铭牌与其他元件文字保留 |
-| Gazebo 控制 | 一个统一窗口控制机械臂、夹爪和柜内元件；开关门控制默认折叠，可点击展开 |
-| MuJoCo 控制 | 完整机械臂与电柜场景、独立电柜操作、独立机械臂操作；关节目标、夹爪开合、局部笛卡尔微调与深度图预览 |
-| 模型资源 | URDF / Xacro / MJCF、网格、材质、贴图、配置与模型生成脚本 |
+| Robot | RML63II six-axis arm, EG2-4C2 gripper, wrist RGB-D camera model, tool flange, fingertips, and mobile table |
+| Cabinet | Enclosure, transparent glass door, hinges, latch, button, and handle |
+| Cabinet components | 24 pressure plates, 3 selector switches, 10 circuit breakers, 3 reset buttons, and 10 indicator lamps |
+| Labels | 40 component identification nameplates; product decals, branding, and specification text have been removed from the breaker housings, while component identifiers and text on other components remain |
+| Gazebo controls | One unified window for the arm, gripper, and cabinet components; door controls are collapsed by default and can be expanded |
+| MuJoCo controls | Complete arm/cabinet scene, standalone cabinet demo, standalone arm demo, joint targets, gripper opening/closing, local Cartesian jogging, and a depth preview |
+| Model resources | URDF / Xacro / MJCF, meshes, materials, textures, configuration, and generation scripts |
 
-两个仿真后端分别运行，没有实现 MuJoCo 与 ROS 2 的状态同步或控制桥接。项目不包含策略训练、数据集采集或真实机器人驱动。
+The two simulation backends run separately. There is no state synchronization or control bridge between MuJoCo and ROS 2. Policy training, dataset collection, and real robot drivers are outside this workspace.
 
 ```text
 .
 ├── src/
-│   ├── rml63ii_eg2_4c2_gazebo/   # 机械臂、夹爪、相机及控制
-│   ├── electrical_cabinet_gazebo/ # 柜体、门锁与开关门状态机
-│   ├── yaban_gazebo/            # 压板
-│   ├── xuanniu_gazebo/          # 转换开关
-│   ├── IO_gazebo/               # 空气开关，ROS 包名为 io_gazebo
-│   ├── fugui_gazebo/            # 复归按钮
-│   ├── total_cabinet_gazebo/    # 完整布局、透明门组合模型与控制界面
-│   └── cabinet_sim_support/    # Gazebo 插件共用支持
-├── tools/                      # 进程管理、Python 选择与模型重建工具
-├── docs/                       # 界面预览
-├── requirements-mujoco.txt      # 整合入口的 Python 依赖
-├── build.sh                    # 编译并安装 ROS 2 包
-├── rebuild_models.sh           # 重新生成 URDF / MJCF
-└── run_*.sh                    # 各仿真运行入口
+│   ├── rml63ii_eg2_4c2_gazebo/   # Arm, gripper, camera, and controls
+│   ├── electrical_cabinet_gazebo/ # Enclosure, latch, and door state machine
+│   ├── yaban_gazebo/             # Pressure plates
+│   ├── xuanniu_gazebo/           # Selector switches
+│   ├── IO_gazebo/                # Circuit breakers; ROS package: io_gazebo
+│   ├── fugui_gazebo/             # Reset buttons
+│   ├── total_cabinet_gazebo/     # Complete layout, glass-door models, and UI
+│   └── cabinet_sim_support/     # Shared Gazebo plugin support
+├── tools/                       # Process management, Python selection, model generation
+├── docs/                        # Scene and UI previews
+├── README.md                    # English documentation
+├── README-zh.md                 # Chinese documentation
+├── requirements-mujoco.txt       # Python dependencies for the integrated entry points
+├── build.sh                     # Build and install ROS 2 packages
+├── rebuild_models.sh            # Regenerate URDF / MJCF
+└── run_*.sh                     # Simulation entry points
 ```
 
-`build/`、`install/`、`log/` 是本机编译产物，可重新生成，不需要提交到 GitHub。Python 虚拟环境也应在目标机器重新创建。
+## Environment and dependencies
 
-## 环境与依赖部署
+### Supported environment
 
-### 支持范围
+The scripts target **Linux**. The main tested environment is **Ubuntu 22.04 x86_64 / WSL2 with WSLg**.
 
-当前脚本面向 **Linux**，主要验证环境为 **Ubuntu 22.04 x86_64 / WSL2 + WSLg**。
-
-| 项目 | 已验证版本 / 要求 |
+| Item | Tested version / requirement |
 | --- | --- |
 | Gazebo | Gazebo **Classic 11.10.2** |
-| ROS 2 | Humble，系统 Python 3.10 |
-| MuJoCo | **2.3.7**；使用根目录依赖清单 |
-| MuJoCo Python | Python 3.10、3.11；验证环境为 3.11.16，另以新建 3.10 虚拟环境验证了无窗口入口 |
-| 数值与图像库 | NumPy 1.26.4 已验证；Pillow 由根依赖清单安装 |
-| 图形界面 | Tk、OpenGL / Mesa，以及可用的显示服务；Windows 主机使用 WSLg |
-| 编译 | C/C++ 编译器；Gazebo 另需 CMake、colcon、Gazebo 开发库和 TBB |
+| ROS 2 | Humble, using system Python 3.10 |
+| MuJoCo | **2.3.7**, using the root dependency file |
+| MuJoCo Python | Python 3.10 and 3.11; tested with 3.11.16, plus headless entry points in a fresh Python 3.10 virtual environment |
+| Numerical and image libraries | NumPy 1.26.4 tested; Pillow installed from the root dependency file |
+| GUI | Tk, OpenGL / Mesa, and a working display service; use WSLg on a Windows host |
+| Build tools | C/C++ compiler; Gazebo also requires CMake, colcon, Gazebo development libraries, and TBB |
 
-Gazebo Classic 已于 2025 年 1 月结束官方支持。当前项目仍依赖 Classic 的插件接口，不能直接用新版 Gazebo Sim 替换。[官方说明](https://classic.gazebosim.org/)
+Gazebo Classic reached end of official support in January 2025. This project depends on Classic plugin interfaces and cannot directly substitute the newer Gazebo Sim. [Official notice](https://classic.gazebosim.org/)
 
-仅运行 MuJoCo 可以跳过 Gazebo / ROS 2 部署。以下步骤需要联网和相应的软件源权限；本仓库目前没有一键安装器、容器镜像或完整离线运行环境，也未完成全新操作系统上的端到端安装验收。
+For MuJoCo only, skip the Gazebo / ROS 2 installation. The following steps require network access and access to the relevant package repositories. There is currently no one-click installer, container image, or complete offline environment. Installation on a freshly installed operating system has not been validated end to end.
 
-### 1. 获取源码
+### 1. Get the source
 
-需先安装 Git（Ubuntu 可执行 `sudo apt install git`），也可下载仓库 ZIP 并解压。
+Install Git first (`sudo apt install git` on Ubuntu), or download and extract the repository ZIP.
 
 ```bash
 git clone https://github.com/Lancerman2001/Elec_cabinet_RML63.git robot_cabinet_ws
 cd robot_cabinet_ws
 ```
 
-后续命令均在仓库根目录执行。已有本地副本时直接进入对应目录即可。
+Run the remaining commands from the repository root. If a local copy already exists, enter that directory instead.
 
-### 2. 部署 MuJoCo
+### 2. Install MuJoCo dependencies
 
-Ubuntu 22.04 的基础依赖：
+System dependencies for Ubuntu 22.04:
 
 ```bash
 sudo apt update
@@ -89,7 +102,7 @@ sudo apt install -y \
   libgl1 libegl1 libgl1-mesa-dri mesa-utils
 ```
 
-创建项目独立环境并安装依赖：
+Create a project environment and install the Python dependencies:
 
 ```bash
 /usr/bin/python3 -m venv .venv
@@ -97,24 +110,24 @@ sudo apt install -y \
 export MUJOCO_PYTHON="$PWD/.venv/bin/python"
 ```
 
-验证环境与无窗口运行：
+Check the environment and run without a viewer:
 
 ```bash
 .venv/bin/python -c "import mujoco, numpy, tkinter; print(mujoco.__version__, numpy.__version__)"
 ./run_mujoco.sh --headless --seconds 1
 ```
 
-说明：
+Notes:
 
-- 整合入口以根目录 [requirements-mujoco.txt](requirements-mujoco.txt) 为准。不要递归安装所有子目录依赖；部分旧独立 Qt 工具使用不同版本的 MuJoCo / PyQt5。
-- 不需要安装或复制 openpi 项目。启动器会优先使用 `MUJOCO_PYTHON`，其次查找项目 `.venv`；本机已有环境只是后备候选。
-- 使用其他 Python 解释器时，该解释器必须能导入 `tkinter`。Ubuntu 的 `python3-tk` 只对应其系统 Python。
-- MuJoCo 2.3.7 的部分兼容操作会首次调用 `cc` 编译仓库中的辅助 C 代码，缓存到 `~/.cache/arm_sim`，因此保留 `build-essential`。
-- `--headless` 进行纯物理步进，不创建控制面板或查看器；调用相机渲染接口时仍需可用的图形后端。
+- Use the root [requirements-mujoco.txt](requirements-mujoco.txt) for the integrated entry points. Do not recursively install every dependency file: some older standalone Qt tools require different MuJoCo / PyQt5 versions.
+- The openpi project is not required. The launcher first checks `MUJOCO_PYTHON`, then the project `.venv`; existing development environments are only fallback candidates.
+- An alternative Python interpreter must support `import tkinter`. Ubuntu's `python3-tk` package corresponds to its system Python.
+- Some MuJoCo 2.3.7 compatibility operations compile auxiliary C code with `cc` on first use and cache it in `~/.cache/arm_sim`; keep `build-essential` installed.
+- `--headless` advances physics without a control panel or viewer. Calling the camera rendering API still requires a working graphics backend.
 
-### 3. 部署 Gazebo / ROS 2
+### 3. Install Gazebo / ROS 2 dependencies
 
-先按 [ROS 2 Humble 官方安装说明](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html) 配置 Ubuntu 22.04 的 ROS 2 软件源。以下命令以 ROS 2 软件源及 Ubuntu `universe` 已配置为前提：
+Configure the ROS 2 package repository for Ubuntu 22.04 using the [official ROS 2 Humble instructions](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html). These commands assume that both the ROS 2 repository and Ubuntu `universe` are enabled:
 
 ```bash
 sudo apt update
@@ -131,53 +144,53 @@ sudo apt install -y \
   ros-humble-tf2-ros ros-humble-xacro
 ```
 
-可选目录 `.deps/root/` 仅包含开发机使用的部分 Linux x86_64 / Humble / Python 3.10 运行依赖，不包含 ROS 或 Gazebo 本体，不能作为跨系统、跨架构的通用安装包。存在时，`ros_env.sh` 会优先加载它。选择上述系统包路线时，应在系统依赖安装完成后，将已有 `.deps` 移到仓库外保留备份，再构建；安装 apt 包不会自动绕过该补充目录。
+The optional `.deps/root/` directory contains only a subset of development-machine dependencies for Linux x86_64 / Humble / Python 3.10. It does not include ROS or Gazebo itself and is not a portable installation package. If present, `ros_env.sh` loads it first. When using the system packages above, move an existing `.deps` directory outside the repository as a backup after installing those packages, then build. Installing apt packages alone does not bypass that directory.
 
-编译并启动：
+Build and launch:
 
 ```bash
 ./build.sh
 ./run_gazebo.sh
 ```
 
-脚本使用 `/opt/ros/humble`、`/usr/share/gazebo/setup.sh` 和系统 `/usr/bin/python3`。ROS 与 MuJoCo 使用不同 Python 环境，不需要在 MuJoCo 虚拟环境中安装 ROS Python 包。
+The scripts use `/opt/ros/humble`, `/usr/share/gazebo/setup.sh`, and system `/usr/bin/python3`. ROS and MuJoCo use separate Python environments; ROS Python packages do not need to be installed into the MuJoCo virtual environment.
 
-## 运行方法
+## Running the simulations
 
 ### MuJoCo
 
 ```bash
-# 完整机械臂与透明门电柜：查看器 + 基础控制面板
+# Complete arm and glass-door cabinet: viewer and basic control panel
 ./run_mujoco.sh
 
-# 独立电柜：直接选择元件并操作，包含门控
+# Standalone cabinet: direct component operations, including door controls
 ./run_cabinet_mujoco.sh
 
-# 独立机械臂
+# Standalone arm
 ./run_arm_mujoco.sh
 
-# 完整场景：D435 深度图预览
+# Complete scene: D435 depth preview
 ./run_mujoco.sh --view d435_depth
 
-# 独立机械臂：D435 深度图预览
+# Standalone arm: D435 depth preview
 ./run_arm_mujoco.sh --camera d435_depth
 
-# 完整场景：固定的全局彩色视角
+# Complete scene: fixed global color view
 ./run_mujoco.sh --view global_default
 
-# 完整场景，无窗口推进 5 秒仿真时间并输出状态
+# Complete scene: advance 5 simulated seconds without windows and print state
 ./run_mujoco.sh --headless --seconds 5
 ```
 
-完整场景主要通过机械臂位置目标与被动元件机构交互。独立电柜入口提供直接操作演示，门和压板包含运动学控制，两者不能作为等价的机器人接触操作实验。
+The complete scene uses arm position targets and passive component mechanisms for interaction demonstrations. The standalone cabinet demo includes prescribed motion for the door and pressure plates. These modes are not equivalent robot contact-manipulation experiments, and neither provides physically representative cabinet force feedback.
 
-相机入口为 RealSense 的 `d435_rgb`、`d435_depth`，以及完整场景的固定彩色视角 `global_default`。全局相机仅保留这一普通视角，不设置独立深度相机。
+Camera choices are the RealSense `d435_rgb` and `d435_depth`, plus the complete scene's fixed color view `global_default`. The global camera has no separate depth-camera entry.
 
-在控制面板或原生查看器中选择 `d435_depth`，会打开独立的灰度深度预览。原生三维查看器保留 RGB 显示，用于场景交互。深度预览取自深度缓冲，显示范围为 0.1～5 米，近处亮、远处暗，远端背景与无效值为黑色，不是将 RGB 图转为灰度。预览仍需要图形渲染环境，`--no-viewer` 不会取消这一要求；`--headless` 不创建预览。
+Selecting `d435_depth` in the control panel or native viewer opens a separate grayscale depth preview. The native 3D viewer keeps its RGB scene display for interaction. The preview uses the depth buffer with a fixed display range of 0.1–5 m: near surfaces are bright, distant surfaces are dark, and far background / invalid values are black. This is not a grayscale conversion of RGB. A graphics environment is still required with `--no-viewer`; `--headless` does not create a preview.
 
-Python 接口 `env.render(camera="d435_depth")` 默认返回 `(H, W)`、`float32` 的米制深度，表示沿相机光轴的距离；`env.render(camera="global_default")` 返回彩色图。`depth=True` 可显式请求深度，`depth=False` 可显式请求 RGB。原始深度数组不受预览显示范围或灰度归一化影响。
+The Python API `env.render(camera="d435_depth")` returns an `(H, W)` `float32` depth array in meters along the camera's optical axis by default. `env.render(camera="global_default")` returns a color image. Use `depth=True` or `depth=False` to request depth or RGB explicitly. Raw depth values are unaffected by the preview range or grayscale mapping.
 
-深度渲染回归检查（需要可用的 OpenGL 后端）：
+Depth rendering regression check, requiring a working OpenGL backend:
 
 ```bash
 tools/mujoco_python.sh tools/check_mujoco_depth.py
@@ -186,48 +199,48 @@ tools/mujoco_python.sh tools/check_mujoco_depth.py
 ### Gazebo
 
 ```bash
-# 完整透明门场景 + 一个统一控制窗口
+# Complete glass-door scene and unified control window
 ./run_gazebo.sh
 
-# 无客户端窗口、无控制面板
+# No 3D client or control panel
 ./run_gazebo.sh gui:=false
 
-# 仅控制窗口，不打开 Gazebo 三维客户端
+# Control panel without the Gazebo 3D client
 ./run_gazebo.sh gui:=false control_gui:=true
 
-# 只加载电柜 / 只加载机械臂
+# Cabinet only / arm only
 ./run_gazebo.sh with_robot:=false
 ./run_gazebo.sh with_cabinet:=false
 
-# 启动时关门，玻璃仍保持透明
+# Start with the transparent glass door closed
 ./run_gazebo.sh initial_pose:=closed
 ```
 
-统一窗口中，机械臂与元件控制并排显示；柜门控制默认收起，点击“展开柜门开关控制”即可展开。展开或收起只改变界面布局，不会触发门动作，也不会重复创建控制程序。
+The unified window displays arm and component controls side by side. Door controls are initially collapsed; click “展开柜门开关控制” to expand them. Expanding or collapsing the section only changes the layout: it does not move the door or create another control process.
 
-![Gazebo 统一控制窗口](docs/unified_gazebo_controls.png)
+![Gazebo unified control window](docs/unified_gazebo_controls.png)
 
-`gui:=false` 只关闭客户端界面，相机传感器仍会尝试渲染。无显示服务的服务器可能需要另外配置虚拟显示或适用的 OpenGL 环境。
+`gui:=false` disables the 3D client, but camera sensors still attempt to render. A server without a display service may need a virtual display or a suitable OpenGL setup.
 
-### 操作约定
+### Operation conventions
 
-- 压板：先松旋钮至少 180°，等实测到位后退出；先投入并等待到位，再紧旋钮。过早执行下一步可能被互锁拒绝。
-- 柜门：正常关门依次执行“门回转 → 门把手回转 → 把手回扣”；正常开门先按按钮弹出把手，再转把手开门。“强制复位”属于调试操作。
-- 单位：界面关节角以度显示，Python / 轨迹接口以弧度表示，位置以米表示。
-- 夹爪：MuJoCo 七维动作最后一维为闭合度，`0=全开，1=全闭`；Gazebo `gripper_joint1` 使用物理角度，约 `0 rad=闭合，0.82 rad=张开`，两者不能直接混用。
-- 工作台默认锁定；Gazebo 的 `table_locked:=false` 为被动脚轮模式，没有实现移动底盘驱动。
-- 按启动终端的 `Ctrl+C` 退出，等待进程清理完成后再重启。
+- Pressure plates: loosen the knob by at least 180° and wait for the measured position before withdrawing the plate. Insert the plate and wait before tightening the knob. Commands sent too early may be rejected by the interlock.
+- Door: close in the order door rotation → handle rotation → handle retraction. To open, press the button to release the handle, then turn the handle and open the door. Force reset is a debugging operation.
+- Units: the UI displays joint angles in degrees; Python and trajectory interfaces use radians, and positions use meters.
+- Gripper: the last element of the seven-value MuJoCo action is closedness (`0 = fully open`, `1 = fully closed`). Gazebo `gripper_joint1` uses a physical angle, approximately `0 rad = closed`, `0.82 rad = open`. Do not interchange these values.
+- The table is locked by default. Gazebo `table_locked:=false` enables passive casters; no mobile-base drive is implemented.
+- Exit with `Ctrl+C` in the launch terminal and wait for process cleanup before restarting.
 
-WSL 默认使用软件渲染。需要显式指定时：
+WSL uses software rendering by default. To select it explicitly:
 
 ```bash
 ARM_GAZEBO_RENDERER=software ./run_gazebo.sh
 ARM_MUJOCO_RENDERER=software ./run_mujoco.sh
 ```
 
-可选值为 `auto`、`software`、`hardware`；实际帧率取决于主机和图形驱动。
+Available values are `auto`, `software`, and `hardware`. Actual frame rate depends on the host and graphics driver.
 
-### ROS 通信与常见检查
+### ROS communication and checks
 
 ```bash
 source ros_env.sh
@@ -236,19 +249,19 @@ ros2 service call /arm/controller_manager/list_controllers \
   controller_manager_msgs/srv/ListControllers '{}'
 ```
 
-默认 `ROS_DOMAIN_ID=64`，Gazebo master 为 `http://127.0.0.1:11355`。同机其他 ROS 控制终端需先执行 `source ros_env.sh`，使用相同 domain 和本机通信设置；可通过 `ROS_DOMAIN_ID` 和 `ARM_GAZEBO_MASTER_URI` 更换 domain 或本机 master 端口。
+The default `ROS_DOMAIN_ID` is `64`, and the Gazebo master is `http://127.0.0.1:11355`. Other ROS terminals on the same machine should first run `source ros_env.sh` to use the same domain and local communication settings. Override `ROS_DOMAIN_ID` or `ARM_GAZEBO_MASTER_URI` to change the domain or local master port.
 
-机械臂轨迹入口为 `/arm/arm_joint_controller/follow_joint_trajectory` 与 `/arm/gripper_controller/follow_joint_trajectory`；关节反馈为 `/arm/joint_states`，整柜反馈为 `/total_cabinet/joint_states`。
+Arm trajectory actions are `/arm/arm_joint_controller/follow_joint_trajectory` and `/arm/gripper_controller/follow_joint_trajectory`. Joint feedback topics are `/arm/joint_states` and `/total_cabinet/joint_states`.
 
-Gazebo D435 的图像与点云话题：
+Gazebo D435 image and point-cloud topics:
 
-| 话题 | 数据 |
+| Topic | Data |
 | --- | --- |
-| `/camera/color/image_raw` | `rgb8` 彩色图，640×480 |
-| `/camera/depth/image_rect_raw` | `32FC1` 米制深度图，640×480；超量程背景可能为 `Inf` |
-| `/camera/depth/points` | XYZ + RGB 点云；按 RGB 着色时仍会显示物体颜色 |
+| `/camera/color/image_raw` | `rgb8` color image, 640×480 |
+| `/camera/depth/image_rect_raw` | `32FC1` metric depth, 640×480; out-of-range background may be `Inf` |
+| `/camera/depth/points` | XYZ + RGB point cloud; RGB coloring retains object colors |
 
-上述编码已通过实际订阅消息核实。Gazebo 三维视窗中的相机视角仍是场景渲染；查看深度图应使用图像工具选择 `/camera/depth/image_rect_raw`。可选安装并启动：
+These encodings have been checked by subscribing to actual messages. A camera view in the Gazebo 3D window is a scene rendering. To view depth, select `/camera/depth/image_rect_raw` in an image viewer. Optional viewer installation and launch:
 
 ```bash
 sudo apt install ros-humble-rqt-image-view
@@ -256,41 +269,41 @@ source ros_env.sh
 ros2 run rqt_image_view rqt_image_view
 ```
 
-### 网络与隐私范围
+### Network and privacy scope
 
-本项目用于本机仿真，不提供网站或公网控制服务。ROS 启动环境强制使用 `ROS_LOCALHOST_ONLY=1`；Gazebo 使用回环通信地址与仅允许 `127.0.0.1` 的入站来源白名单，同时移除继承的 `GAZEBO_HOSTNAME`。独立转换开关工具的无认证 TCP 演示服务也只允许绑定回环地址，三个整合 MuJoCo 入口不启动该服务。
+This is a local simulation project, not a website or public control service. The ROS environment enforces `ROS_LOCALHOST_ONLY=1`. Gazebo uses loopback addresses and an inbound source allowlist containing only `127.0.0.1`, and inherited `GAZEBO_HOSTNAME` settings are removed. The unauthenticated TCP demo in the standalone selector tool also only binds to loopback; the three integrated MuJoCo entry points do not start that service.
 
-Gazebo Classic 底层仍可能以 `0.0.0.0` 监听 master 及动态 TCP 端口；回环 URI 本身不能限制监听地址，来源白名单也不能等同于防火墙、TLS 或身份认证。在带公网接口的主机上运行时，仍需由主机防火墙或隔离网络阻止外部入站连接，不应为这些仿真端口配置公网映射。`ROS_DOMAIN_ID` 仅用于区分通信域，不是安全认证。
+Gazebo Classic may still listen on `0.0.0.0` for its master and dynamic TCP ports. A loopback URI does not constrain the listening address, and a source allowlist is not a substitute for a firewall, TLS, or authentication. On a host with a public network interface, use a host firewall or isolated network to block external inbound connections. Do not forward these simulation ports to the public internet. `ROS_DOMAIN_ID` separates communication domains; it is not authentication.
 
-仓库保留仿真模型所需的尺寸、惯量、限位、摩擦与相机内参等参数，不包含真机连接凭据或设备序列号。生成模型使用相对来源路径；依赖、构建缓存、本机 IDE 配置及常见私钥 / `.env` 文件由忽略规则排除。现有第三方来源署名保留。
+The repository retains geometry, inertia, limits, friction, and camera intrinsics needed by the simulation, but contains no real-device connection credentials or device serial numbers. Generated models use relative source paths. Existing third-party attribution is preserved.
 
-## 修改与重建模型
+## Editing and regenerating models
 
-使用仓库内已有模型时，无需执行本节。模型重建会同时调用 ROS 的 `xacro` 和 MuJoCo，因此需要先完成两套依赖部署。
+Skip this section when using the included models. Regeneration invokes both ROS `xacro` and MuJoCo, so install both sets of dependencies first.
 
 ```bash
-# 首次建立包索引，或在修改包内配置后先同步配置
+# Establish the package index, or synchronize edited package configuration
 ./build.sh
 
-# 更新 src 下的 URDF / MJCF
+# Regenerate URDF / MJCF under src
 ./rebuild_models.sh
 
-# 更新 Gazebo 从 install 读取的模型和脚本
+# Refresh the models and scripts read by Gazebo from install
 ./build.sh
 ```
 
-MuJoCo 默认直接读取 `src/` 下的模型；Gazebo 读取 `install/` 下的资源，因此修改后需要重新构建。两者都只生成透明门场景。
+MuJoCo reads models directly from `src/` by default. Gazebo reads installed resources, so rebuild after editing them. Both generators produce only the transparent-door scene.
 
-主要模型入口：
+Main model entry points:
 
-| 用途 | 路径 |
+| Purpose | Path |
 | --- | --- |
-| Gazebo 完整透明门电柜 | `src/total_cabinet_gazebo/urdf/total_cabinet_glass.ros2.urdf` |
-| MuJoCo 完整机械臂与电柜 | `src/total_cabinet_gazebo/mujoco/robot_cabinet_scene_glass_door.xml` |
-| MuJoCo 独立电柜 | `src/total_cabinet_gazebo/mujoco/total_cabinet_glass_door.xml` |
-| MuJoCo 独立机械臂 | `src/rml63ii_eg2_4c2_gazebo/model_mjcf/scene.xml` |
+| Gazebo complete glass-door cabinet | `src/total_cabinet_gazebo/urdf/total_cabinet_glass.ros2.urdf` |
+| MuJoCo complete arm and cabinet | `src/total_cabinet_gazebo/mujoco/robot_cabinet_scene_glass_door.xml` |
+| MuJoCo standalone cabinet | `src/total_cabinet_gazebo/mujoco/total_cabinet_glass_door.xml` |
+| MuJoCo standalone arm | `src/rml63ii_eg2_4c2_gazebo/model_mjcf/scene.xml` |
 
-默认复用预生成铭牌贴图，不需要 Windows 字体文件。修改铭牌文字或尺寸时，应提供对应的 SimSun 字体：
+Pre-generated nameplate textures are reused by default; Windows font files are not needed for normal use. To change nameplate text or dimensions, provide a corresponding SimSun font:
 
 ```bash
 CABINET_REUSE_NAMEPLATES=0 \
@@ -298,39 +311,45 @@ CABINET_NAMEPLATE_FONT=/absolute/path/to/simsun.ttc \
 ./rebuild_models.sh
 ```
 
-## 已知问题与限制
+## Known issues and limitations
 
-### 控制与接触稳定性
+### Visual and structural reference only
 
-| 项目 | 当前实现与限制 |
+The complete cabinet and its components are visually and structurally analogous to real equipment. They can be used as a reference for appearance, layout, and structure. **The designed force feedback differs from actual cabinet operation and is not a reference for real mechanical behavior.** Simulated contact forces, torques, operating resistance, springs, and friction must not be used to estimate real operating forces, select force thresholds, validate force-control methods, assess operational safety, or support transfer to real equipment.
+
+This limitation applies even when a component moves or a task completes in the simulation. Successful UI commands, plausible-looking motion, or numerically reported contact forces do not establish physical validity.
+
+### Control and contact stability
+
+| Item | Current implementation and limitation |
 | --- | --- |
-| 机械臂控制 | Gazebo 使用关节位置轨迹控制；MuJoCo 使用位置参考、等效 PD 执行器、参考限速和重力前馈。当前运行入口未实现机械臂末端闭环力控或专用的笛卡尔阻抗 / 导纳控制器。 |
-| 接触后的响应 | 接触力未反馈到机械臂参考生成中，未实现按末端力目标调节、超力自动退让或基于末端力反馈的接触建立与保持策略。持续给定进入碰撞体的位置目标，可能产生较大的接触载荷或跟踪偏差。 |
-| 触碰元件时反复颤抖 | 已有用户报告，列为待定位问题。尚未完成不同元件、姿态、速度和两套后端下的系统性复现、根因定位与稳定性验证，不能认定已解决。 |
-| MuJoCo 笛卡尔微调 | 采用局部数值 IK，有有限精度与收敛条件；不是避障运动规划。小于位置 / 姿态容差的增量可能被判为已到达，不保证任意微小命令均产生可分辨运动。 |
-| 场景摆放 | 小车与柜门摆放属于设置操作；端点穿透检查不能替代沿路径的碰撞检查或运动规划。 |
+| Arm control | Gazebo uses joint-position trajectories. MuJoCo uses position references, equivalent PD actuators, reference-rate limits, and gravity feedforward. The entry points do not implement end-effector closed-loop force control or a dedicated Cartesian impedance / admittance controller. |
+| Contact response | Contact force is not fed back into arm reference generation. There is no end-effector force-target regulation, automatic retreat under excessive force, or force-feedback contact acquisition and holding strategy. Targets inside collision geometry may produce large simulated loads or tracking errors; those loads are not estimates of real operating forces. |
+| Repeated shaking on contact | Reported by the user and remains unresolved. Systematic reproduction, root-cause analysis, and stability validation across components, poses, speeds, and both backends have not been completed. |
+| MuJoCo Cartesian jogging | Local numerical IK has finite tolerances and convergence conditions; it is not collision-free motion planning. Increments below those tolerances may be considered reached without discernible motion. |
+| Scene placement | Setting the table or door pose is a setup operation. An endpoint penetration check does not replace collision checking along a path or motion planning. |
 
-对颤抖问题的核实范围：已检查实际启动入口和控制链，并进行了一组不修改模型及控制参数的 MuJoCo 静态接触试验：机械臂以位置参考接近空气开关上壳，建立接触后保持目标约 3 秒仿真时间。该工况出现小幅漂移与位置跟踪误差，未复现持续大幅往复振荡。此结果不覆盖元件边缘滑移、其他姿态、运动接触或 Gazebo 工况，不能据此声称接触普遍稳定。
+The contact investigation covered the actual control paths and one MuJoCo static-contact case without changing model or control parameters: the arm approached the upper breaker housing with a position reference, then held the target for about 3 simulated seconds. Small drift and tracking error were observed, without sustained large back-and-forth oscillation in that case. This did not cover edge sliding, other poses, moving contact, or Gazebo. It establishes neither general contact stability nor correspondence with real operating forces.
 
-位置目标与碰撞 / 机构约束之间的相互作用是需要排查的因素；时间步、接触求解、惯性近似、关节限位及从动约束也可能影响结果。目前没有足够证据将用户观察到的颤抖归结为某个确定原因，例如单一 PID 参数或力矩饱和。
+Position targets interacting with collision or mechanism constraints are among the factors to investigate. Timestep, contact solving, approximate inertia, joint limits, and mimic constraints may also affect behavior. There is insufficient evidence to attribute the reported shaking to a single PID parameter or torque saturation.
 
-控制实现可查阅 [Gazebo 控制器配置](src/rml63ii_eg2_4c2_gazebo/config/ros2_controllers.yaml)、[MuJoCo 机械臂控制](src/rml63ii_eg2_4c2_gazebo/mujoco/environment.py)和[元件接触观测](src/total_cabinet_gazebo/mujoco/interaction_backend.py)。
+Implementation references: [Gazebo controller configuration](src/rml63ii_eg2_4c2_gazebo/config/ros2_controllers.yaml), [MuJoCo arm control](src/rml63ii_eg2_4c2_gazebo/mujoco/environment.py), and [component contact observations](src/total_cabinet_gazebo/mujoco/interaction_backend.py).
 
-### 传感与反馈
+### Sensors and feedback
 
-当前支持相机、关节状态和局部接触观测，末端力觉及传感器真实性仍不完整：
+Camera images, joint states, and local contact observations are available, with the following limits:
 
-- **已有信息**：Gazebo 的腕部 RGB-D、关节反馈和柜门按钮接触信息；MuJoCo 的相机渲染、元件关节 / 按钮 touch 信息，以及引擎接触力统计。
-- **未配置能力**：机械臂腕部六维力 / 力矩传感器、指尖触觉阵列，以及使用这些测量量的机械臂力反馈控制链。
-- **仿真真值的边界**：引擎计算的接触力、关节 `effort` 接口和接触标志不能直接视为经过标定的真实力传感器测量，也不能等同于闭环力控制。
-- **相机简化**：当前 D435 对应理想化 RGB-D 渲染，深度图为引擎计算的几何深度，未模拟真实 D435 的红外双目成像过程，也未完整模拟噪声、畸变、标定误差和时延特性；配置的标称分辨率 / 频率不保证实际运行帧率。
+- **Available data:** wrist RGB-D, joint feedback, and door-button contact information in Gazebo; camera rendering, component joint / button touch observations, and engine contact-force statistics in MuJoCo.
+- **Missing capabilities:** a wrist six-axis force/torque sensor, fingertip tactile arrays, and an arm force-feedback control chain using such measurements.
+- **Meaning of the outputs:** engine contact forces, joint `effort` interfaces, and contact flags are internal simulation observations. They do not provide a reference for actual operating force feedback and do not constitute closed-loop force control.
+- **Camera simplifications:** the D435 uses idealized RGB-D rendering. Depth is geometric engine output; the real D435 infrared stereo imaging process, noise, distortion, calibration error, and latency are not fully modeled. Nominal resolution / frequency does not guarantee runtime frame rate.
 
-### 机构模型与验证边界
+### Mechanisms and validation scope
 
-- Gazebo 的柜门和部分压板动作采用运动学插件设置位置；独立 MuJoCo 电柜入口的门 / 压板也包含规定运动。界面按钮成功不等同于机械臂依靠接触力完成了操作。
-- 默认 MuJoCo 完整场景使用被动机构力、约束和机器人接触，但其中的惯性、摩擦、阻尼、弹簧及接触参数含有近似，未完成真实设备的系统辨识或实验标定。
-- 两个后端的控制与接触处理不同，不保证相同指令得到相同的位姿、载荷或操作结果。
-- 目前验证主要覆盖场景加载、界面、关节轨迹、元件命令与开关门协议，未完成机器人接触操作的全面稳定性、接触载荷准确性或跨平台性能验收。
-- 场景较复杂，软件渲染时可能显著慢于实时；Gazebo Classic 已停止官方支持，长期维护还需考虑依赖可用性及迁移工作。
+- Gazebo sets positions kinematically for the door and some pressure-plate actions. The standalone MuJoCo cabinet demo also prescribes door / plate motion. A successful button command does not demonstrate robot manipulation through physically representative contact forces.
+- The complete MuJoCo scene includes passive mechanism forces, constraints, and robot contacts. Its inertia, friction, damping, springs, and contact parameters are implementation settings for the demonstration, not validated real-equipment mechanical data.
+- The two backends use different control and contact processing. Identical commands do not guarantee matching poses, simulated loads, or operation outcomes.
+- Verification mainly covers loading, UI behavior, joint trajectories, component commands, and door protocols. It does not validate real force feedback, mechanical equivalence, safe contact loads, or robot contact-operation stability.
+- The scene can run much slower than real time with software rendering. Gazebo Classic is no longer officially supported, so long-term maintenance also depends on dependency availability and migration.
 
-遇到接触抖动时，建议在 GitHub Issue 中提供仿真后端和版本、启动命令、元件编号、机械臂起始姿态及目标、触碰过程视频和相关日志，以便定位具体复现条件。
+When reporting contact shaking in a GitHub Issue, include the backend and version, launch command, component identifier, starting arm pose and target, a recording of the contact sequence, and relevant logs.
