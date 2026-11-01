@@ -1,0 +1,12 @@
+{
+  "model": "xuanniu.xml",
+  "units": "metres, kilograms, seconds",
+  "source_sha256": {
+    "urdf/xuanniu.urdf": "5a4053868846f0482cf488e3c450c56d112f13f192ef98c491519a97e9c1c146",
+    "config/model.yaml": "2d3c7e6493f385c1a4b446f05cf83dfe1c27180f65f88840d78084daf4b8443d",
+    "meshes/frame.stl": "beee02e00eff9f7e327b6a652b1817140fc9104be6c0c4ed37eb01486f0c083a",
+    "meshes/nameplate.dae": "431205751420c4e3de1e928f71beff5e7da507a0d8014f387423a7c0f3d0663b",
+    "meshes/rotor.dae": "c933ea7979a65e078d916123adc44bce20c8f30ee8906d5d5731939f68dc23e7",
+    "materials/textures/nameplate.png": "00793bb0325b3da775f16c9f33a225a93e2b9d42bcd864ebce8f49d1b59087a8"
+  }
+}

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="rml63ii_d435_scene">
+  <include file="rml63ii_eg2_4c2.xml" />
+  <option timestep="0.002" integrator="implicitfast" />
+  <visual>
+    <global azimuth="120" elevation="-20" />
+  </visual>
+  <worldbody>
+    <light name="key" pos="2 -2 3" dir="-1 1 -1" castshadow="true" />
+    <geom name="floor" type="plane" size="3 3 0.1" rgba="0.18 0.18 0.18 1" />
+  </worldbody>
+</mujoco>

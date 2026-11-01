@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="xuanniu_selector_switch">
+  <!--Generated from URDF; metres, kilograms, seconds. Use xuanniu_mujoco.py for detent control.-->
+  <compiler angle="radian" autolimits="true" inertiafromgeom="false" fusestatic="false" />
+  <option timestep=".001" integrator="implicitfast" gravity="0 0 -9.81" iterations="100" />
+  <statistic center=".015 0 .12" extent=".1" />
+  <visual>
+    <global offwidth="1000" offheight="1000" />
+    <map znear=".3" zfar="30" />
+    <quality offsamples="4" shadowsize="2048" />
+    <headlight ambient=".3 .3 .3" diffuse=".4 .4 .4" specular=".1 .1 .1" />
+  </visual>
+  <default>
+    <default class="visual">
+      <geom contype="0" conaffinity="0" group="2" density="0" />
+    </default>
+    <default class="collision">
+      <geom contype="1" conaffinity="1" group="3" density="0" rgba="1 .3 0 0" friction=".7 .005 .0001" solref=".004 1" />
+    </default>
+  </default>
+  <asset>
+    <texture name="background" type="skybox" builtin="gradient" rgb1=".12 .16 .20" rgb2=".12 .16 .20" width="512" height="3072" />
+    <mesh name="frame" file="../meshes/frame.stl" />
+    <material name="frame_material" rgba=".045 .050 .060 1" specular=".25" shininess=".35" />
+    <mesh name="nameplate" vertex="0.00695 0.0225 -0.023 0.00695 0.0225 0.023 0.00695 -0.0225 0.023 0.00695 -0.0225 -0.023 0.00693 0.0225 -0.023 0.00693 0.0225 0.023 0.00693 -0.0225 0.023 0.00693 -0.0225 -0.023" face="0 1 2 0 2 3 4 6 5 4 7 6 0 4 5 0 5 1 1 5 6 1 6 2 2 6 7 2 7 3 3 7 4 3 4 0" texcoord="1 1 1 0 0 0 0 1 1 1 1 0 0 0 0 1" />
+    <texture name="nameplate_texture" type="2d" file="../materials/textures/nameplate.png" />
+    <material name="nameplate_material" texture="nameplate_texture" rgba="1 1 1 1" specular=".12" shininess=".25" />
+    <mesh name="shaft" file="meshes/shaft.obj" />
+    <material name="shaft_material" rgba="0.48 0.51 0.54 1" specular=".35" shininess=".35" />
+    <mesh name="hub" file="meshes/hub.obj" />
+    <material name="hub_material" rgba="0.065 0.07 0.08 1" specular=".22" shininess=".35" />
+    <mesh name="handle" file="meshes/handle.obj" />
+    <material name="handle_material" rgba="0.052 0.06 0.074 1" specular=".22" shininess=".35" />
+    <mesh name="screw" file="meshes/screw.obj" />
+    <material name="screw_material" rgba="0.58 0.61 0.64 1" specular=".35" shininess=".35" />
+    <mesh name="slot" file="meshes/slot.obj" />
+    <material name="slot_material" rgba="0.04 0.05 0.06 1" specular=".22" shininess=".35" />
+    <mesh name="pointer" file="meshes/pointer.obj" />
+    <material name="pointer_material" rgba="0.9 0.88 0.77 1" specular=".22" shininess=".35" />
+  </asset>
+  <worldbody>
+    <light name="key" pos=".2 -.1 .4" dir="-.7 .3 -.7" directional="true" diffuse=".3 .3 .3" castshadow="false" />
+    <light name="fill" pos=".1 .2 .2" dir="-.6 -.6 .2" directional="true" diffuse=".12 .12 .12" castshadow="false" />
+    <camera name="front" pos="1.5 0 0.12" xyaxes="0 1 -0 0 0 1" fovy="2.65" />
+    <camera name="side" pos="0.016 -0.75 0.12" xyaxes="1 0 0 0 0 1" fovy="5.3" />
+    <camera name="top" pos="0.016 0 0.87" xyaxes="0 1 0 -1 0 0" fovy="5.3" />
+    <camera name="oblique" pos="0.145 -0.105 0.18" xyaxes="0.628337107088 0.777941180204 -0 -0.262887819478 0.212332469578 0.941172097298" fovy="24" />
+    <body name="xuanniu_mount_link" pos="0 0 .12" quat="1 0 0 0">
+      <inertial mass=".001" fullinertia="1e-9 1e-9 1e-9 0 0 0" pos="0 0 0" />
+      <body name="xuanniu_frame_link" pos="0 0 0" quat="1 0 0 0">
+        <inertial mass="0.025" fullinertia="9.802083333333336e-06 5.104166666666668e-06 4.902083333333334e-06 0 0 0" pos="0.0035 0 0" />
+        <geom name="frame_visual" type="mesh" mesh="frame" material="frame_material" class="visual" pos="0 0 0" />
+        <geom name="xuanniu_frame_link_collision_0" class="collision" pos="0.0035 0 0" quat="1 0 0 0" type="box" size="0.0035 0.024 0.0245" />
+        <body name="xuanniu_nameplate_link" pos="0 0 0">
+          <inertial mass=".001" fullinertia="0.00000035 0.00000018 0.00000017 0 0 0" pos="0 0 0" />
+          <geom name="nameplate_visual" type="mesh" mesh="nameplate" material="nameplate_material" class="visual" pos="0 0 0" />
+        </body>
+        <body name="xuanniu_rotor_link" pos="0.007 0 0" quat="1 0 0 0">
+          <inertial mass="0.01" fullinertia="9e-07 1.3e-06 7e-07 0 0 0" pos=".013 0 0" />
+          <joint name="xuanniu_selector_joint" type="hinge" axis="1 0 0" range="-0.7853981633974483 0.7853981633974483" damping=".00032" solreflimit=".002 1" solimplimit=".99 .999 .00001" margin="0" />
+          <geom name="shaft_visual" type="mesh" mesh="shaft" material="shaft_material" class="visual" pos="0 0 0" />
+          <geom name="hub_visual" type="mesh" mesh="hub" material="hub_material" class="visual" pos="0 0 0" />
+          <geom name="handle_visual" type="mesh" mesh="handle" material="handle_material" class="visual" pos="0 0 0" />
+          <geom name="screw_visual" type="mesh" mesh="screw" material="screw_material" class="visual" pos="0 0 0" />
+          <geom name="slot_visual" type="mesh" mesh="slot" material="slot_material" class="visual" pos="0 0 0" />
+          <geom name="pointer_visual" type="mesh" mesh="pointer" material="pointer_material" class="visual" pos="0 0 0" />
+          <geom name="xuanniu_rotor_link_collision_0" class="collision" pos="0.002 0 0" quat="0.707106781187 0 0.707106781187 0" type="cylinder" size="0.0025 0.002" />
+          <geom name="xuanniu_rotor_link_collision_1" class="collision" pos="0.007 0 0" quat="0.707106781187 0 0.707106781187 0" type="cylinder" size="0.011 0.003" />
+          <geom name="xuanniu_rotor_link_collision_2" class="collision" pos="0.018000000000000002 0 0" quat="1 0 0 0" type="box" size="0.008 0.005 0.005" />
+          <geom name="xuanniu_rotor_link_collision_3" class="collision" pos="0.018000000000000002 0 0.0125" quat="1 0 0 0" type="box" size="0.008 0.002 0.0075" />
+          <geom name="xuanniu_rotor_link_collision_4" class="collision" pos="0.018000000000000002 0 -0.0125" quat="1 0 0 0" type="box" size="0.008 0.002 0.0075" />
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor name="xuanniu_torque" joint="xuanniu_selector_joint" gear="1" ctrlrange="-.04 .04" forcerange="-.04 .04" />
+  </actuator>
+  <sensor>
+    <jointpos name="selector_angle" joint="xuanniu_selector_joint" />
+    <jointvel name="selector_velocity" joint="xuanniu_selector_joint" />
+  </sensor>
+  <custom>
+    <numeric name="target_speed" data="1.5707963267948966" />
+    <numeric name="position_gain" data="0.035" />
+    <numeric name="velocity_gain" data="0.00032" />
+    <numeric name="detent_torque" data="0.0015" />
+    <numeric name="drag_timeout" data="0.5" />
+    <numeric name="action_timeout" data="3" />
+  </custom>
+  <keyframe>
+    <key name="stop" qpos="0" ctrl="0" />
+  </keyframe>
+</mujoco>

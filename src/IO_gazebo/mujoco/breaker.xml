@@ -1,0 +1,148 @@
+<?xml version="1.0" ?>
+<mujoco model="cabinet_circuit_breaker">
+  <!--Generated from ../urdf/breaker.urdf. Units: m, kg, radians.-->
+  <compiler angle="radian" meshdir="../meshes" autolimits="true" inertiafromgeom="false" fusestatic="false"/>
+  <option timestep="0.001" integrator="implicitfast" gravity="0 0 -9.81" iterations="100"/>
+  <statistic center="0.015 0 0.12" extent="0.13"/>
+  <visual>
+    <global offwidth="1100" offheight="1200" azimuth="-35" elevation="-20"/>
+    <headlight ambient="0.35 0.35 0.35" diffuse="0.55 0.55 0.55" specular="0.12 0.12 0.12"/>
+    <map znear="0.001" zfar="20"/>
+    <quality shadowsize="2048" offsamples="4"/>
+  </visual>
+  <default>
+    <default class="visual">
+      <geom contype="0" conaffinity="0" group="2" density="0"/>
+    </default>
+    <default class="collision">
+      <geom contype="1" conaffinity="1" group="3" density="0" rgba="0.9 0.3 0.1 0.0" friction="0.65 0.005 0.0001" solref="0.004 1" solimp="0.95 0.99 0.0001"/>
+    </default>
+  </default>
+  <asset>
+    <mesh name="arm" file="arm.stl"/>
+    <mesh name="grip" file="grip.stl"/>
+    <mesh name="rib" file="rib.stl"/>
+    <mesh name="upper_shell" file="upper_shell.stl"/>
+  </asset>
+  <worldbody>
+    <light name="key" pos="0.2 -0.1 0.4" dir="-0.5 0.2 -0.8" directional="true" diffuse="0.65 0.65 0.65" specular="0.12 0.12 0.12"/>
+    <light name="fill" pos="0.1 0.2 0.2" dir="-0.6 -0.6 0.2" directional="true" diffuse="0.2 0.2 0.2" castshadow="false"/>
+    <camera name="front" pos="0.12 0 0.12" xyaxes="0 1 0 0 -0 1" fovy="32"/>
+    <camera name="oblique" pos="0.105 -0.076 0.162" xyaxes="0.641013638498 0.767529488202 0 -0.256287482491 0.21404229307 0.942604170952" fovy="36"/>
+    <camera name="side" pos="0.017 -0.125 0.12" xyaxes="1 -0 0 -0 0 1" fovy="32"/>
+    <body name="breaker_mount_link" pos="0 0 0.12" quat="1 0 0 0">
+      <inertial mass="0.1" fullinertia="0.00024 0.00012003333333333334 0.00012003333333333334 0 0 0" pos="0 0 0"/>
+      <body name="breaker_panel_link" pos="0 0 0" quat="1 0 0 0">
+        <inertial mass="0.1" fullinertia="0.00024 0.00012003333333333334 0.00012003333333333334 0 0 0" pos="0 0 0"/>
+        <geom pos="-0.001 0 0.04135" quat="1 0 0 0" name="breaker_panel_link_visual_0" class="visual" rgba="0.40 0.43 0.44 1" group="2" type="box" size="0.001 0.06 0.01865"/>
+        <geom pos="-0.001 0 -0.04135" quat="1 0 0 0" name="breaker_panel_link_visual_1" class="visual" rgba="0.40 0.43 0.44 1" group="2" type="box" size="0.001 0.06 0.01865"/>
+        <geom pos="-0.001 0.03885 0" quat="1 0 0 0" name="breaker_panel_link_visual_2" class="visual" rgba="0.40 0.43 0.44 1" group="2" type="box" size="0.001 0.02115 0.0227"/>
+        <geom pos="-0.001 -0.03885 0" quat="1 0 0 0" name="breaker_panel_link_visual_3" class="visual" rgba="0.40 0.43 0.44 1" group="2" type="box" size="0.001 0.02115 0.0227"/>
+        <geom pos="-0.001 0 0.04135" quat="1 0 0 0" name="breaker_panel_link_collision_0" class="collision" type="box" size="0.001 0.06 0.01865"/>
+        <geom pos="-0.001 0 -0.04135" quat="1 0 0 0" name="breaker_panel_link_collision_1" class="collision" type="box" size="0.001 0.06 0.01865"/>
+        <geom pos="-0.001 0.03885 0" quat="1 0 0 0" name="breaker_panel_link_collision_2" class="collision" type="box" size="0.001 0.02115 0.0227"/>
+        <geom pos="-0.001 -0.03885 0" quat="1 0 0 0" name="breaker_panel_link_collision_3" class="collision" type="box" size="0.001 0.02115 0.0227"/>
+      </body>
+      <body name="breaker_base_link" pos="0 0 0" quat="1 0 0 0">
+        <inertial mass="0.03" fullinertia="8.125e-06 6.062499999999999e-06 4.0625e-06 0 0 0" pos="0.01 0 0"/>
+        <geom pos="0.01 0.00875 0.010499999999999999" quat="1 0 0 0" name="breaker_base_link_visual_0" class="visual" rgba="0.875 0.875 0.835 1" type="mesh" mesh="upper_shell"/>
+        <geom pos="0.01 -0.00875 0.010499999999999999" quat="1 0 0 0" name="breaker_base_link_visual_1" class="visual" rgba="0.875 0.875 0.835 1" type="mesh" mesh="upper_shell"/>
+        <geom pos="0.004 0 -0.012" quat="1 0 0 0" name="breaker_base_link_visual_2" class="visual" rgba="0.875 0.875 0.835 1" type="box" size="0.004 0.0175 0.0105"/>
+        <geom pos="0.01 0 -0.0217" quat="1 0 0 0" name="breaker_base_link_visual_3" class="visual" rgba="0.875 0.875 0.835 1" type="box" size="0.01 0.0175 0.0008"/>
+        <geom pos="0.014 0.015725000000000003 -0.012" quat="1 0 0 0" name="breaker_base_link_visual_4" class="visual" rgba="0.875 0.875 0.835 1" type="box" size="0.006 0.001775 0.01"/>
+        <geom pos="0.016 0.015725000000000003 -0.009" quat="0.707106781187 0.707106781187 0 0" name="breaker_base_link_visual_5" class="visual" rgba="0.875 0.875 0.835 1" type="cylinder" size="0.0075 0.001775"/>
+        <geom pos="0.014 0.0018750000000000004 -0.012" quat="1 0 0 0" name="breaker_base_link_visual_6" class="visual" rgba="0.875 0.875 0.835 1" type="box" size="0.006 0.001775 0.01"/>
+        <geom pos="0.016 0.0018750000000000004 -0.009" quat="0.707106781187 0.707106781187 0 0" name="breaker_base_link_visual_7" class="visual" rgba="0.875 0.875 0.835 1" type="cylinder" size="0.0075 0.001775"/>
+        <geom pos="0.014 -0.0018750000000000004 -0.012" quat="1 0 0 0" name="breaker_base_link_visual_8" class="visual" rgba="0.875 0.875 0.835 1" type="box" size="0.006 0.001775 0.01"/>
+        <geom pos="0.016 -0.0018750000000000004 -0.009" quat="0.707106781187 0.707106781187 0 0" name="breaker_base_link_visual_9" class="visual" rgba="0.875 0.875 0.835 1" type="cylinder" size="0.0075 0.001775"/>
+        <geom pos="0.014 -0.015725000000000003 -0.012" quat="1 0 0 0" name="breaker_base_link_visual_10" class="visual" rgba="0.875 0.875 0.835 1" type="box" size="0.006 0.001775 0.01"/>
+        <geom pos="0.016 -0.015725000000000003 -0.009" quat="0.707106781187 0.707106781187 0 0" name="breaker_base_link_visual_11" class="visual" rgba="0.875 0.875 0.835 1" type="cylinder" size="0.0075 0.001775"/>
+        <geom pos="0.01 0 0.010499999999999999" quat="1 0 0 0" name="breaker_base_link_collision_0" class="collision" type="box" size="0.01 0.0175 0.012"/>
+        <geom pos="0.004 0 -0.012" quat="1 0 0 0" name="breaker_base_link_collision_1" class="collision" type="box" size="0.004 0.0175 0.0105"/>
+        <geom pos="0.01 0 -0.0217" quat="1 0 0 0" name="breaker_base_link_collision_2" class="collision" type="box" size="0.01 0.0175 0.0008"/>
+        <geom pos="0.014 0.015725000000000003 -0.012" quat="1 0 0 0" name="breaker_base_link_collision_3" class="collision" type="box" size="0.006 0.001775 0.01"/>
+        <geom pos="0.016 0.015725000000000003 -0.009" quat="0.707106781187 0.707106781187 0 0" name="breaker_base_link_collision_4" class="collision" type="cylinder" size="0.0075 0.001775"/>
+        <geom pos="0.014 0.0018750000000000004 -0.012" quat="1 0 0 0" name="breaker_base_link_collision_5" class="collision" type="box" size="0.006 0.001775 0.01"/>
+        <geom pos="0.016 0.0018750000000000004 -0.009" quat="0.707106781187 0.707106781187 0 0" name="breaker_base_link_collision_6" class="collision" type="cylinder" size="0.0075 0.001775"/>
+        <geom pos="0.014 -0.0018750000000000004 -0.012" quat="1 0 0 0" name="breaker_base_link_collision_7" class="collision" type="box" size="0.006 0.001775 0.01"/>
+        <geom pos="0.016 -0.0018750000000000004 -0.009" quat="0.707106781187 0.707106781187 0 0" name="breaker_base_link_collision_8" class="collision" type="cylinder" size="0.0075 0.001775"/>
+        <geom pos="0.014 -0.015725000000000003 -0.012" quat="1 0 0 0" name="breaker_base_link_collision_9" class="collision" type="box" size="0.006 0.001775 0.01"/>
+        <geom pos="0.016 -0.015725000000000003 -0.009" quat="0.707106781187 0.707106781187 0 0" name="breaker_base_link_collision_10" class="collision" type="cylinder" size="0.0075 0.001775"/>
+        <body name="breaker_label_link" pos="0 0 0" quat="1 0 0 0">
+          <inertial mass="1e-05" fullinertia="1.5008333333333336e-09 4.800083333333334e-10 1.0208416666666668e-09 0 0 0" pos="0 0 0"/>
+        </body>
+        <body name="breaker_window_frame_link" pos="0 0 0" quat="1 0 0 0">
+          <inertial mass="1e-05" fullinertia="1.5208333333333336e-11 4.483333333333334e-12 1.0875e-11 0 0 0" pos="0 0 0"/>
+          <geom pos="0.02008 0.01025 0.0093" quat="1 0 0 0" name="breaker_window_frame_link_visual_0" class="visual" rgba="0.10 0.12 0.12 1" type="box" size="5e-05 0.0018 0.00115"/>
+          <geom pos="0.02008 -0.007250000000000001 0.0093" quat="1 0 0 0" name="breaker_window_frame_link_visual_1" class="visual" rgba="0.10 0.12 0.12 1" type="box" size="5e-05 0.0018 0.00115"/>
+        </body>
+        <body name="breaker_indicator_link" pos="0 0 0" quat="1 0 0 0">
+          <inertial mass="1e-05" fullinertia="9.633333333333335e-12 2.141666666666667e-12 7.508333333333334e-12 0 0 0" pos="0 0 0"/>
+          <geom pos="0.02015 0.01025 0.0093" quat="1 0 0 0" name="breaker_indicator_link_visual_0" class="visual" rgba="0.015 0.32 0.18 1" type="box" size="5e-05 0.0015 0.0008"/>
+          <geom pos="0.02015 -0.007250000000000001 0.0093" quat="1 0 0 0" name="breaker_indicator_link_visual_1" class="visual" rgba="0.015 0.32 0.18 1" type="box" size="5e-05 0.0015 0.0008"/>
+        </body>
+        <body name="breaker_handle_link" pos="0.016 0 -0.009" quat="0.939692620786 0 0.342020143326 0">
+          <inertial mass="0.006" fullinertia="5.383142499999999e-07 2.565314e-07 6.9942965e-07 0 0 0" pos="0.00924 0 0"/>
+          <joint name="breaker_toggle_joint" type="hinge" axis="0 1 0" range="-0.6981317007977318 0.6981317007977318" ref="0.6981317007977318" damping="0.0008" solreflimit="0.012 1" solimplimit="0.99 0.999 0.0001"/>
+          <geom pos="0 0.00875 0" quat="0.707106781187 0.707106781187 0 0" name="breaker_handle_link_visual_0" class="visual" rgba="0.015 0.255 0.76 1" type="cylinder" size="0.0062 0.005"/>
+          <geom pos="0 -0.00875 0" quat="0.707106781187 0.707106781187 0 0" name="breaker_handle_link_visual_1" class="visual" rgba="0.015 0.255 0.76 1" type="cylinder" size="0.0062 0.005"/>
+          <geom pos="0.005 0.00875 0" quat="1 0 0 0" name="breaker_handle_link_visual_2" class="visual" rgba="0.015 0.255 0.76 1" type="mesh" mesh="arm"/>
+          <geom pos="0.005 -0.00875 0" quat="1 0 0 0" name="breaker_handle_link_visual_3" class="visual" rgba="0.015 0.255 0.76 1" type="mesh" mesh="arm"/>
+          <geom pos="0.0126 0 0" quat="1 0 0 0" name="breaker_handle_link_visual_4" class="visual" rgba="0.015 0.255 0.76 1" type="mesh" mesh="grip"/>
+          <geom pos="0.017 0 0.0017" quat="1 0 0 0" name="breaker_handle_link_visual_5" class="visual" rgba="0.015 0.255 0.76 1" type="mesh" mesh="rib"/>
+          <geom pos="0 0.00875 0" quat="0.707106781187 0.707106781187 0 0" name="breaker_handle_link_collision_0" class="collision" type="cylinder" size="0.0062 0.005"/>
+          <geom pos="0 -0.00875 0" quat="0.707106781187 0.707106781187 0 0" name="breaker_handle_link_collision_1" class="collision" type="cylinder" size="0.0062 0.005"/>
+          <geom pos="0.005 0.00875 0" quat="1 0 0 0" name="breaker_handle_link_collision_2" class="collision" type="box" size="0.0065 0.005 0.0016"/>
+          <geom pos="0.005 -0.00875 0" quat="1 0 0 0" name="breaker_handle_link_collision_3" class="collision" type="box" size="0.0065 0.005 0.0016"/>
+          <geom pos="0.0126 0 0" quat="1 0 0 0" name="breaker_handle_link_collision_4" class="collision" type="box" size="0.0045 0.0142 0.0027"/>
+          <geom pos="0.0126 0 0" quat="1 0 0 0" name="breaker_handle_link_collision_5" class="collision" type="box" size="0.0032 0.0155 0.0027"/>
+          <geom pos="0.0126 0 0" quat="1 0 0 0" name="breaker_handle_link_collision_6" class="collision" type="box" size="0.0032 0.0142 0.004"/>
+          <geom pos="0.0126 -0.0142 -0.0027" quat="0.707106781187 0 0.707106781187 0" name="breaker_handle_link_collision_7" class="collision" type="cylinder" size="0.0013 0.0032"/>
+          <geom pos="0.0126 -0.0142 0.0027" quat="0.707106781187 0 0.707106781187 0" name="breaker_handle_link_collision_8" class="collision" type="cylinder" size="0.0013 0.0032"/>
+          <geom pos="0.0126 0.0142 -0.0027" quat="0.707106781187 0 0.707106781187 0" name="breaker_handle_link_collision_9" class="collision" type="cylinder" size="0.0013 0.0032"/>
+          <geom pos="0.0126 0.0142 0.0027" quat="0.707106781187 0 0.707106781187 0" name="breaker_handle_link_collision_10" class="collision" type="cylinder" size="0.0013 0.0032"/>
+          <geom pos="0.0094 0 -0.0027" quat="0.707106781187 0.707106781187 0 0" name="breaker_handle_link_collision_11" class="collision" type="cylinder" size="0.0013 0.0142"/>
+          <geom pos="0.0094 0 0.0027" quat="0.707106781187 0.707106781187 0 0" name="breaker_handle_link_collision_12" class="collision" type="cylinder" size="0.0013 0.0142"/>
+          <geom pos="0.0158 0 -0.0027" quat="0.707106781187 0.707106781187 0 0" name="breaker_handle_link_collision_13" class="collision" type="cylinder" size="0.0013 0.0142"/>
+          <geom pos="0.0158 0 0.0027" quat="0.707106781187 0.707106781187 0 0" name="breaker_handle_link_collision_14" class="collision" type="cylinder" size="0.0013 0.0142"/>
+          <geom pos="0.0094 -0.0142 0" quat="1 0 0 0" name="breaker_handle_link_collision_15" class="collision" type="cylinder" size="0.0013 0.0027"/>
+          <geom pos="0.0094 0.0142 0" quat="1 0 0 0" name="breaker_handle_link_collision_16" class="collision" type="cylinder" size="0.0013 0.0027"/>
+          <geom pos="0.0158 -0.0142 0" quat="1 0 0 0" name="breaker_handle_link_collision_17" class="collision" type="cylinder" size="0.0013 0.0027"/>
+          <geom pos="0.0158 0.0142 0" quat="1 0 0 0" name="breaker_handle_link_collision_18" class="collision" type="cylinder" size="0.0013 0.0027"/>
+          <geom pos="0.0094 -0.0142 -0.0027" quat="1 0 0 0" name="breaker_handle_link_collision_19" class="collision" type="sphere" size="0.0013"/>
+          <geom pos="0.0094 -0.0142 0.0027" quat="1 0 0 0" name="breaker_handle_link_collision_20" class="collision" type="sphere" size="0.0013"/>
+          <geom pos="0.0094 0.0142 -0.0027" quat="1 0 0 0" name="breaker_handle_link_collision_21" class="collision" type="sphere" size="0.0013"/>
+          <geom pos="0.0094 0.0142 0.0027" quat="1 0 0 0" name="breaker_handle_link_collision_22" class="collision" type="sphere" size="0.0013"/>
+          <geom pos="0.0158 -0.0142 -0.0027" quat="1 0 0 0" name="breaker_handle_link_collision_23" class="collision" type="sphere" size="0.0013"/>
+          <geom pos="0.0158 -0.0142 0.0027" quat="1 0 0 0" name="breaker_handle_link_collision_24" class="collision" type="sphere" size="0.0013"/>
+          <geom pos="0.0158 0.0142 -0.0027" quat="1 0 0 0" name="breaker_handle_link_collision_25" class="collision" type="sphere" size="0.0013"/>
+          <geom pos="0.0158 0.0142 0.0027" quat="1 0 0 0" name="breaker_handle_link_collision_26" class="collision" type="sphere" size="0.0013"/>
+          <body name="breaker_pockets_link" pos="0 0 0" quat="1 0 0 0">
+            <inertial mass="1e-06" fullinertia="1.6603333333333335e-11 2.708333333333333e-13 1.6334166666666668e-11 0 0 0" pos="0 0 0"/>
+            <geom pos="0.017115000000000002 0.0057 -0.0014" quat="1 0 0 0" name="breaker_pockets_link_visual_0" class="visual" rgba="0.002 0.035 0.15 1" type="box" size="1.5e-05 0.0016 0.0009"/>
+            <geom pos="0.017115000000000002 -0.0057 -0.0014" quat="1 0 0 0" name="breaker_pockets_link_visual_1" class="visual" rgba="0.002 0.035 0.15 1" type="box" size="1.5e-05 0.0016 0.0009"/>
+          </body>
+          <site name="breaker_grip_center" size="0.0008" rgba="0 0 0 0" group="5" pos="0.0126 0 0" quat="1 0 0 0"/>
+          <site name="breaker_push_up_contact" size="0.0008" rgba="0 0 0 0" group="5" pos="0.0126 0 -0.004" quat="1 0 0 0"/>
+          <site name="breaker_push_down_contact" size="0.0008" rgba="0 0 0 0" group="5" pos="0.0126 0 0.004" quat="1 0 0 0"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <position name="breaker_position" joint="breaker_toggle_joint" kp="0.08" kv="0.0016" ctrlrange="-0.698131700798 0.698131700798" forcerange="-0.04 0.04"/>
+  </actuator>
+  <sensor>
+    <jointpos name="toggle_angle" joint="breaker_toggle_joint"/>
+    <jointvel name="toggle_velocity" joint="breaker_toggle_joint"/>
+  </sensor>
+  <keyframe>
+    <key name="off" qpos="0.698131700798" ctrl="0.698131700798"/>
+    <key name="on" qpos="-0.698131700798" ctrl="-0.698131700798"/>
+  </keyframe>
+  <custom>
+    <numeric name="target_speed" data="1.5"/>
+    <numeric name="hysteresis" data="0.17453292519943295"/>
+    <numeric name="action_timeout" data="5.0"/>
+  </custom>
+</mujoco>

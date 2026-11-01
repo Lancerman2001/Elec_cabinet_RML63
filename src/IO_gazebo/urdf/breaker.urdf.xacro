@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="circuit_breaker" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="prefix" default="breaker_"/><xacro:arg name="robot_namespace" default="/breaker"/>
+  <xacro:arg name="demo_control" default="true"/><xacro:arg name="enable_plugin" default="true"/>
+  <xacro:arg name="world_fixed" default="true"/><xacro:arg name="show_panel" default="true"/>
+  <xacro:arg name="mount_xyz" default="0 0 0.12"/><xacro:arg name="mount_rpy" default="0 0 0"/>
+  <xacro:include filename="breaker_macro.xacro"/>
+  <link name="$(arg prefix)mount_link"><xacro:br_inertia mass="0.1" size="${[0.002,0.12,0.12]}"/></link>
+  <xacro:if value="$(arg world_fixed)">
+    <link name="world"/>
+    <joint name="$(arg prefix)world_mount" type="fixed"><parent link="world"/><child link="$(arg prefix)mount_link"/><origin xyz="$(arg mount_xyz)" rpy="$(arg mount_rpy)"/></joint>
+  </xacro:if>
+  <xacro:if value="$(arg show_panel)">
+    <link name="$(arg prefix)panel_link"><xacro:br_inertia mass="0.1" size="${[0.002,0.12,0.12]}"/>
+      <!-- Four bars surround a 35.4 x 45.4 mm cutout. -->
+      <xacro:br_box xyz="-0.001 0 0.04135" size="0.002 0.12 0.0373"/>
+      <xacro:br_box xyz="-0.001 0 -0.04135" size="0.002 0.12 0.0373"/>
+      <xacro:br_box xyz="-0.001 0.03885 0" size="0.002 0.0423 0.0454"/>
+      <xacro:br_box xyz="-0.001 -0.03885 0" size="0.002 0.0423 0.0454"/>
+    </link>
+    <joint name="$(arg prefix)panel_mount" type="fixed"><parent link="$(arg prefix)mount_link"/><child link="$(arg prefix)panel_link"/></joint>
+    <xacro:br_surface link="$(arg prefix)panel_link" color="0.40 0.43 0.44 1"/>
+  </xacro:if>
+  <xacro:circuit_breaker parent="$(arg prefix)mount_link" prefix="$(arg prefix)" robot_namespace="$(arg robot_namespace)" demo_control="$(arg demo_control)" enable_plugin="$(arg enable_plugin)"><origin xyz="0 0 0"/></xacro:circuit_breaker>
+</robot>

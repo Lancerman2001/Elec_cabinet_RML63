@@ -1,0 +1,9 @@
+# Positive inward travel, in millimetres. Allowed range: 0..4 inclusive.
+float64 depth_mm
+# Hold time after reaching the target; 0..10 seconds of simulation time.
+float64 hold_seconds
+# false: hold until /fugui/release; true: release automatically.
+bool auto_release
+---
+bool success
+string message

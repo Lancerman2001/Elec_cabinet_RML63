@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="protection_signal_reset_button">
+  <compiler angle="radian" autolimits="true" inertiafromgeom="false" fusestatic="false" />
+  <option timestep=".001" integrator="implicitfast" gravity="0 0 -9.81" iterations="100" />
+  <statistic center=".010 0 .12" extent=".13" />
+  <visual>
+    <global offwidth="1000" offheight="1000" azimuth="148" elevation="-20" />
+    <headlight ambient=".35 .35 .35" diffuse=".5 .5 .5" specular=".15 .15 .15" />
+    <map znear=".01" zfar="20" />
+    <quality shadowsize="2048" offsamples="4" />
+  </visual>
+  <default>
+    <default class="visual">
+      <geom contype="0" conaffinity="0" group="2" density="0" />
+    </default>
+    <default class="collision">
+      <geom contype="1" conaffinity="1" group="3" density="0" rgba=".9 .3 .1 0" friction=".7 .005 .0001" solref=".004 1" solimp=".95 .99 .0001" />
+    </default>
+  </default>
+  <asset>
+    <mesh name="frame" file="../meshes/frame.stl" />
+    <mesh name="guard_ring" file="../meshes/guard_ring.stl" />
+    <mesh name="insert" file="../meshes/insert.stl" />
+    <mesh name="label_recess" file="../meshes/label_recess.stl" />
+    <mesh name="nameplate" file="compat_meshes/cabinet_compat_nameplate.obj" />
+    <texture name="nameplate_texture" type="2d" file="../materials/textures/nameplate.png" />
+    <material name="nameplate_material" texture="nameplate_texture" rgba="1 1 1 1" specular=".05" shininess=".1" />
+    <mesh name="rear_sleeve" file="../meshes/rear_sleeve.stl" />
+    <material name="fugui_lamp" rgba=".005 .12 .045 1" emission="0" specular=".3" shininess=".4" />
+  </asset>
+  <worldbody>
+    <light name="key" pos=".2 -.1 .4" dir="-.7 .3 -.7" directional="true" diffuse=".6 .6 .6" specular=".15 .15 .15" />
+    <light name="fill" pos=".1 .2 .2" dir="-.6 -.6 .2" directional="true" diffuse=".2 .2 .2" castshadow="false" />
+    <camera name="front" pos="0.18 0 0.12" xyaxes="0 1 0 0 -0 1" fovy="32" />
+    <camera name="oblique" pos="0.155 -0.1 0.177" xyaxes="0.567732955804 0.823212785915 0 -0.253457161375 0.174798042327 0.951422677755" fovy="32" />
+    <camera name="side" pos="0.015 -0.18 0.12" xyaxes="1 -0 0 -0 0 1" fovy="32" />
+    <body name="fugui_mount_link" pos="0 0 .12" quat="1 0 0 0">
+      <inertial mass="0.001" fullinertia="1.6666666666666669e-10 1.6666666666666669e-10 1.6666666666666669e-10 0 0 0" pos="0 0 0" />
+      <body name="fugui_frame_link" pos="0 0 0" quat="1 0 0 0">
+        <inertial mass="0.08" fullinertia="7.016666666666666e-05 3.782666666666667e-05 3.299333333333334e-05 0 0 0" pos="0 0 0" />
+        <geom pos=".0035 0 0" quat="1 0 0 0" name="fugui_frame_link_visual_0" class="visual" rgba="0.59 0.565 0.39 1" type="mesh" mesh="frame" />
+        <geom pos=".0035 0 0" quat="1 0 0 0" name="fugui_frame_link_collision_0" class="collision" type="box" size="0.0035 0.035 0.0375" />
+        <body name="fugui_insert_link" pos="0 0 0" quat="1 0 0 0">
+          <inertial mass="0.005" fullinertia="1.8408333333333334e-06 9.204541666666666e-07 9.204541666666666e-07 0 0 0" pos="0 0 0" />
+          <geom pos=".00687 0 -.008" quat="1 0 0 0" name="fugui_insert_link_visual_0" class="visual" rgba="0.64 0.61 0.44 1" type="mesh" mesh="insert" />
+        </body>
+        <body name="fugui_label_link" pos="0 0 0" quat="1 0 0 0">
+          <inertial mass="0.001" fullinertia="2.0833333333333336e-07 1.6340833333333336e-08 1.920075e-07 0 0 0" pos="0 0 0" />
+          <geom pos=".00687 0 .024" quat="1 0 0 0" name="fugui_label_link_visual_0" class="visual" rgba="0.25 0.245 0.19 1" type="mesh" mesh="label_recess" />
+        </body>
+        <body name="fugui_nameplate_link" pos="0 0 0" quat="1 0 0 0">
+          <inertial mass="0.001" fullinertia="1.8833333333333334e-07 1.2000833333333333e-08 1.7633416666666667e-07 0 0 0" pos="0 0 0" />
+          <geom pos=".00704 0 .024" quat="1 0 0 0" name="fugui_nameplate_link_visual_0" class="visual" rgba="1 1 1 1" type="mesh" mesh="nameplate" material="nameplate_material" />
+        </body>
+        <body name="fugui_sleeve_link" pos="0 0 0" quat="1 0 0 0">
+          <inertial mass="0.02" fullinertia="2.613333333333334e-06 1.4133333333333337e-06 1.4133333333333337e-06 0 0 0" pos="0 0 0" />
+          <geom pos=".007 0 -.0065" quat="1 0 0 0" name="fugui_sleeve_link_visual_0" class="visual" rgba="0.055 0.060 0.055 1" type="mesh" mesh="rear_sleeve" />
+          <geom pos="0.011 0.013025 -0.0065" quat="1 0 0 0" name="fugui_sleeve_link_collision_0" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.012774728277252076 -0.003958948555739929" quat="0.995184726672 0.0980171403296 0 0" name="fugui_sleeve_link_collision_1" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.01203353091095951 -0.0015155482934447054" quat="0.980785280403 0.195090322016 0 0" name="fugui_sleeve_link_collision_2" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.010829891700240651 0.000736302285080319" quat="0.956940335732 0.290284677254 0 0" name="fugui_sleeve_link_collision_3" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.009210065824954781 0.002710065824954782" quat="0.923879532511 0.382683432365 0 0" name="fugui_sleeve_link_collision_4" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.00723630228508032 0.004329891700240652" quat="0.881921264348 0.471396736826 0 0" name="fugui_sleeve_link_collision_5" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.004984451706555295 0.00553353091095951" quat="0.831469612303 0.55557023302 0 0" name="fugui_sleeve_link_collision_6" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.0025410514442600713 0.006274728277252077" quat="0.773010453363 0.634393284164 0 0" name="fugui_sleeve_link_collision_7" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 7.975512279447138e-19 0.006525" quat="0.707106781187 0.707106781187 0 0" name="fugui_sleeve_link_collision_8" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.0025410514442600696 0.006274728277252077" quat="0.634393284164 0.773010453363 0 0" name="fugui_sleeve_link_collision_9" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.004984451706555293 0.00553353091095951" quat="0.55557023302 0.831469612303 0 0" name="fugui_sleeve_link_collision_10" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.007236302285080315 0.004329891700240655" quat="0.471396736826 0.881921264348 0 0" name="fugui_sleeve_link_collision_11" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.009210065824954781 0.002710065824954782" quat="0.382683432365 0.923879532511 0 0" name="fugui_sleeve_link_collision_12" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.010829891700240653 0.000736302285080319" quat="0.290284677254 0.956940335732 0 0" name="fugui_sleeve_link_collision_13" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.01203353091095951 -0.0015155482934447037" quat="0.195090322016 0.980785280403 0 0" name="fugui_sleeve_link_collision_14" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.012774728277252076 -0.003958948555739925" quat="0.0980171403296 0.995184726672 0 0" name="fugui_sleeve_link_collision_15" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.013025 -0.006499999999999998" quat="6.12323399574e-17 1 0 0" name="fugui_sleeve_link_collision_16" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.012774728277252076 -0.009041051444260071" quat="-0.0980171403296 0.995184726672 0 -0" name="fugui_sleeve_link_collision_17" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.012033530910959512 -0.011484451706555293" quat="-0.195090322016 0.980785280403 0 -0" name="fugui_sleeve_link_collision_18" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.010829891700240655 -0.013736302285080316" quat="-0.290284677254 0.956940335732 0 -0" name="fugui_sleeve_link_collision_19" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.009210065824954783 -0.01571006582495478" quat="-0.382683432365 0.923879532511 0 -0" name="fugui_sleeve_link_collision_20" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.007236302285080319 -0.01732989170024065" quat="-0.471396736826 0.881921264348 0 -0" name="fugui_sleeve_link_collision_21" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.004984451706555302 -0.018533530910959505" quat="-0.55557023302 0.831469612303 0 -0" name="fugui_sleeve_link_collision_22" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -0.0025410514442600757 -0.019274728277252073" quat="-0.634393284164 0.773010453363 0 -0" name="fugui_sleeve_link_collision_23" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 -2.392653683834141e-18 -0.019525" quat="-0.707106781187 0.707106781187 0 -0" name="fugui_sleeve_link_collision_24" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.0025410514442600713 -0.019274728277252077" quat="-0.773010453363 0.634393284164 0 -0" name="fugui_sleeve_link_collision_25" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.004984451706555298 -0.01853353091095951" quat="-0.831469612303 0.55557023302 0 -0" name="fugui_sleeve_link_collision_26" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.007236302285080314 -0.017329891700240654" quat="-0.881921264348 0.471396736826 0 -0" name="fugui_sleeve_link_collision_27" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.00921006582495478 -0.015710065824954784" quat="-0.923879532511 0.382683432365 0 -0" name="fugui_sleeve_link_collision_28" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.010829891700240651 -0.01373630228508032" quat="-0.956940335732 0.290284677254 0 -0" name="fugui_sleeve_link_collision_29" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.012033530910959506 -0.011484451706555302" quat="-0.980785280403 0.195090322016 0 -0" name="fugui_sleeve_link_collision_30" class="collision" type="box" size="0.004 0.000975 0.00119" />
+          <geom pos="0.011 0.012774728277252075 -0.009041051444260076" quat="-0.995184726672 0.0980171403296 0 -0" name="fugui_sleeve_link_collision_31" class="collision" type="box" size="0.004 0.000975 0.00119" />
+        </body>
+        <body name="fugui_guard_link" pos="0 0 0" quat="1 0 0 0">
+          <inertial mass="0.025" fullinertia="3.266666666666667e-06 1.735416666666667e-06 1.735416666666667e-06 0 0 0" pos="0 0 0" />
+          <geom pos=".015 0 -.0065" quat="1 0 0 0" name="fugui_guard_link_visual_0" class="visual" rgba="0.67 0.69 0.68 1" type="mesh" mesh="guard_ring" />
+          <geom pos="0.0185 0.013025 -0.0065" quat="1 0 0 0" name="fugui_guard_link_collision_0" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.012774728277252076 -0.003958948555739929" quat="0.995184726672 0.0980171403296 0 0" name="fugui_guard_link_collision_1" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.01203353091095951 -0.0015155482934447054" quat="0.980785280403 0.195090322016 0 0" name="fugui_guard_link_collision_2" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.010829891700240651 0.000736302285080319" quat="0.956940335732 0.290284677254 0 0" name="fugui_guard_link_collision_3" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.009210065824954781 0.002710065824954782" quat="0.923879532511 0.382683432365 0 0" name="fugui_guard_link_collision_4" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.00723630228508032 0.004329891700240652" quat="0.881921264348 0.471396736826 0 0" name="fugui_guard_link_collision_5" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.004984451706555295 0.00553353091095951" quat="0.831469612303 0.55557023302 0 0" name="fugui_guard_link_collision_6" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.0025410514442600713 0.006274728277252077" quat="0.773010453363 0.634393284164 0 0" name="fugui_guard_link_collision_7" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 7.975512279447138e-19 0.006525" quat="0.707106781187 0.707106781187 0 0" name="fugui_guard_link_collision_8" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.0025410514442600696 0.006274728277252077" quat="0.634393284164 0.773010453363 0 0" name="fugui_guard_link_collision_9" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.004984451706555293 0.00553353091095951" quat="0.55557023302 0.831469612303 0 0" name="fugui_guard_link_collision_10" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.007236302285080315 0.004329891700240655" quat="0.471396736826 0.881921264348 0 0" name="fugui_guard_link_collision_11" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.009210065824954781 0.002710065824954782" quat="0.382683432365 0.923879532511 0 0" name="fugui_guard_link_collision_12" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.010829891700240653 0.000736302285080319" quat="0.290284677254 0.956940335732 0 0" name="fugui_guard_link_collision_13" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.01203353091095951 -0.0015155482934447037" quat="0.195090322016 0.980785280403 0 0" name="fugui_guard_link_collision_14" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.012774728277252076 -0.003958948555739925" quat="0.0980171403296 0.995184726672 0 0" name="fugui_guard_link_collision_15" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.013025 -0.006499999999999998" quat="6.12323399574e-17 1 0 0" name="fugui_guard_link_collision_16" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.012774728277252076 -0.009041051444260071" quat="-0.0980171403296 0.995184726672 0 -0" name="fugui_guard_link_collision_17" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.012033530910959512 -0.011484451706555293" quat="-0.195090322016 0.980785280403 0 -0" name="fugui_guard_link_collision_18" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.010829891700240655 -0.013736302285080316" quat="-0.290284677254 0.956940335732 0 -0" name="fugui_guard_link_collision_19" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.009210065824954783 -0.01571006582495478" quat="-0.382683432365 0.923879532511 0 -0" name="fugui_guard_link_collision_20" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.007236302285080319 -0.01732989170024065" quat="-0.471396736826 0.881921264348 0 -0" name="fugui_guard_link_collision_21" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.004984451706555302 -0.018533530910959505" quat="-0.55557023302 0.831469612303 0 -0" name="fugui_guard_link_collision_22" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -0.0025410514442600757 -0.019274728277252073" quat="-0.634393284164 0.773010453363 0 -0" name="fugui_guard_link_collision_23" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 -2.392653683834141e-18 -0.019525" quat="-0.707106781187 0.707106781187 0 -0" name="fugui_guard_link_collision_24" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.0025410514442600713 -0.019274728277252077" quat="-0.773010453363 0.634393284164 0 -0" name="fugui_guard_link_collision_25" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.004984451706555298 -0.01853353091095951" quat="-0.831469612303 0.55557023302 0 -0" name="fugui_guard_link_collision_26" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.007236302285080314 -0.017329891700240654" quat="-0.881921264348 0.471396736826 0 -0" name="fugui_guard_link_collision_27" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.00921006582495478 -0.015710065824954784" quat="-0.923879532511 0.382683432365 0 -0" name="fugui_guard_link_collision_28" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.010829891700240651 -0.01373630228508032" quat="-0.956940335732 0.290284677254 0 -0" name="fugui_guard_link_collision_29" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.012033530910959506 -0.011484451706555302" quat="-0.980785280403 0.195090322016 0 -0" name="fugui_guard_link_collision_30" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+          <geom pos="0.0185 0.012774728277252075 -0.009041051444260076" quat="-0.995184726672 0.0980171403296 0 -0" name="fugui_guard_link_collision_31" class="collision" type="box" size="0.0035 0.000975 0.00119" />
+        </body>
+        <body name="fugui_button_link" pos=".021 0 -.0065" quat="1 0 0 0">
+          <inertial mass=".01" fullinertia=".00000072 .000000363333 .000000363333 0 0 0" pos="0 0 0" />
+          <joint name="fugui_press_joint" type="slide" axis="-1 0 0" range="0 0.004" stiffness="120.0" springref="0" damping="1.5" solreflimit=".002 1" solimplimit=".99 .999 .00001" />
+          <geom pos="0 0 0" quat="0.707106781187 0 0.707106781187 0" name="fugui_button_link_visual_0" class="visual" type="cylinder" size="0.012 0.001" material="fugui_lamp" />
+          <geom pos="0 0 0" quat="0.707106781187 0 0.707106781187 0" name="fugui_button_link_collision_0" class="collision" type="cylinder" size="0.012 0.001" />
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor name="fugui_press_force" joint="fugui_press_joint" gear="1" ctrlrange="-10 10" forcerange="-10 10" />
+  </actuator>
+  <sensor>
+    <jointpos name="press_depth" joint="fugui_press_joint" />
+    <jointvel name="press_velocity" joint="fugui_press_joint" />
+  </sensor>
+  <custom>
+    <numeric name="valid_depth_range" data="0.003 0.004" />
+    <numeric name="default_depth" data="0.0035" />
+    <numeric name="rearm_depth" data="0.0005" />
+    <numeric name="lamp_duration" data="1.0" />
+    <numeric name="numerical_tolerance" data="1e-06" />
+    <numeric name="reference_speed" data=".025" />
+    <numeric name="servo_kp" data="400" />
+    <numeric name="servo_kd" data="3" />
+    <numeric name="action_timeout" data="3" />
+  </custom>
+  <keyframe>
+    <key name="rest" qpos="0" ctrl="0" />
+  </keyframe>
+</mujoco>

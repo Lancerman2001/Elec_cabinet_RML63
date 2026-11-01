@@ -1,0 +1,11 @@
+{
+  "travel_max": 0.004,
+  "valid_min": 0.003,
+  "valid_max": 0.004,
+  "default_depth": 0.0035,
+  "rearm_depth": 0.0005,
+  "lamp_duration": 1.0,
+  "numerical_tolerance": 0.000001,
+  "stiffness": 120.0,
+  "damping": 1.5
+}

@@ -1,0 +1,23 @@
+{
+  "source_sha256": {
+    "urdf/fugui.urdf": "a7ea70e5586bd4eeafb2e6c32ac3e9a5ec4a52d350617ffbb882d556c04c9d78",
+    "config/button.yaml": "c173a121e647a53b5e933d7c90f5b965c11ea621912756cdd27aa9d22f2afa91",
+    "meshes/frame.stl": "0007c5f1823cad34a886d7138acc7cee4583312a36453c2327275cfca2875ed5",
+    "meshes/guard_ring.stl": "13bd4f5e62f14d2b1fb5aa690cba6e18f326b15f5abb545eea7ea69af3723909",
+    "meshes/insert.stl": "72a250f2c96928111203f70c5a2c48732d663396c0762635845561163017d91b",
+    "meshes/label_recess.stl": "19e3a58957a4d847e60678c9db864d46a3d08a6f30bbf046acdc20c683b04b61",
+    "meshes/rear_sleeve.stl": "9aa79bd818398ad8fe53a6056e46e3d584a07dd021d6ed20d397c3a4779c466d",
+    "meshes/nameplate.dae": "f109f39db6e57e3b302e407a5617d389877626ae26f7e163fb5b69553bfce690",
+    "materials/textures/nameplate.png": "50d24861feec04ce3cc61f8c50ec1d028010a2a17942265f01bdc70283347ff8"
+  },
+  "model": "fugui.xml",
+  "units": "metres, kilograms, seconds",
+  "joint": "fugui_press_joint",
+  "actuator": "fugui_press_force",
+  "valid_depth_mm": [
+    3.0,
+    4.0
+  ],
+  "nominal_depth_mm": 3.5,
+  "lamp_seconds": 1.0
+}

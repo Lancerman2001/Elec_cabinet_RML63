@@ -1,0 +1,8 @@
+{
+  "urdf/total_cabinet_glass.urdf": "9f883166e7cd710810baa6333beaf85d0cbbe0d0a384fd35d551da2a04d0f2db",
+  "electrical_cabinet_gazebo/urdf/electrical_cabinet.urdf": "963fe008a3999a3d864ba2d7ed6d577aa4ede721704d75d777aade39a495dabe",
+  "yaban_gazebo/urdf/yaban.urdf": "f4a748704d918d9e7605aa58cfcfe6a81d42b660b4d8ea0eba5c6088ddba80b9",
+  "xuanniu_gazebo/urdf/xuanniu.urdf": "5a4053868846f0482cf488e3c450c56d112f13f192ef98c491519a97e9c1c146",
+  "IO_gazebo/urdf/breaker.urdf": "781d3b418b73005bb5afb149c06f9eca958772b05f88d43f18a4a969130d1f20",
+  "fugui_gazebo/urdf/fugui.urdf": "a7ea70e5586bd4eeafb2e6c32ac3e9a5ec4a52d350617ffbb882d556c04c9d78"
+}

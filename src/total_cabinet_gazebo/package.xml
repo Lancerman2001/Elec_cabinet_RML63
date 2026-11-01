@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package format="3">
+  <name>total_cabinet_gazebo</name>
+  <version>0.2.0</version>
+  <description>Complete electrical cabinet for Gazebo Classic and standalone MuJoCo.</description>
+  <maintainer email="181957883+Lancerman2001@users.noreply.github.com">Lancerman2001</maintainer>
+  <license>Proprietary</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_plugins</depend>
+  <depend>gazebo_msgs</depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
+  <depend>ament_index_python</depend>
+  <depend>cabinet_sim_support</depend>
+  <depend>electrical_cabinet_gazebo</depend>
+  <depend>yaban_gazebo</depend>
+  <depend>xuanniu_gazebo</depend>
+  <depend>io_gazebo</depend>
+  <depend>fugui_gazebo</depend>
+  <depend>rml63ii_eg2_4c2_gazebo</depend>
+  <exec_depend>python3-tk</exec_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_ros plugin_path="${prefix}/../../lib" />
+  </export>
+  <build_depend>gazebo_dev</build_depend>
+</package>

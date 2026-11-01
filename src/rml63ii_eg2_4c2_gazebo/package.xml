@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package format="3">
+  <name>rml63ii_eg2_4c2_gazebo</name>
+  <version>0.3.0</version>
+  <description>Standalone RML63II arm, EG2-4C2 gripper and D435 simulation in Gazebo and MuJoCo.</description>
+  <maintainer email="181957883+Lancerman2001@users.noreply.github.com">Lancerman2001</maintainer>
+  <license>TODO</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <build_depend>gazebo_dev</build_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_plugins</exec_depend>
+  <exec_depend>gazebo_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>builtin_interfaces</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>gazebo_ros2_control</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>joint_state_broadcaster</exec_depend>
+  <exec_depend>joint_trajectory_controller</exec_depend>
+  <exec_depend>control_msgs</exec_depend>
+  <exec_depend>trajectory_msgs</exec_depend>
+  <exec_depend>python3-tk</exec_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+  <build_depend>libtbb-dev</build_depend>
+</package>

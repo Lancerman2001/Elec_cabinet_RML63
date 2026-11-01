@@ -1,0 +1,56 @@
+{
+  "description": "Equivalent passive mechanisms; SI units, not calibrated against a physical cabinet.",
+  "yaban": {
+    "screw_pitch": 0.0007,
+    "release_angle": 3.141592653589793,
+    "knob_hysteresis": 0.002,
+    "closed_tolerance": 0.001,
+    "leave_closed_tolerance": 0.002,
+    "knob_frictionloss": 0.001,
+    "blade_frictionloss": 0.005,
+    "joint_damping": 0.003,
+    "limit_solref": [
+      0.002,
+      1.0
+    ],
+    "limit_solimp": [
+      0.99,
+      0.999,
+      0.0001,
+      0.5,
+      2.0
+    ],
+    "constraint_solref": [
+      0.002,
+      1.0
+    ],
+    "constraint_solimp": [
+      0.99,
+      0.999,
+      0.0001,
+      0.5,
+      2.0
+    ],
+    "thread_solimp": [
+      0.9999,
+      0.9999,
+      0.0001,
+      0.5,
+      2.0
+    ]
+  },
+  "breaker": {
+    "detent_torque": 0.01,
+    "detent_angle": 0.6981317007977318,
+    "hysteresis": 0.17453292519943295,
+    "damping": 0.0008
+  },
+  "selector": {
+    "detent_torque": 0.0015,
+    "damping": 0.002,
+    "angle_tolerance": 0.017453292519943295,
+    "velocity_tolerance": 0.05,
+    "settle_seconds": 0.1
+  },
+  "reset": {}
+}

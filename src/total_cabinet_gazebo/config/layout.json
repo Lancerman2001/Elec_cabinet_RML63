@@ -1,0 +1,22 @@
+{
+  "units": "metres",
+  "panel_x": 0.2,
+  "left_y": -0.36,
+  "bottom_z": 0.125,
+  "width": 0.72,
+  "height": 2.01,
+  "clear_depth": 0.08,
+  "yaban": {
+    "rows": 3, "columns": 8, "left": 0.148, "bottom": 0.38, "column_pitch": 0.055, "row_pitch": 0.135,
+    "row_colors_top_to_bottom": [[0.58, 0.60, 0.62, 1], [0.65, 0.025, 0.04, 1], null]
+  },
+  "selector": {"count": 3, "left": 0.22, "bottom": 1.19, "pitch": 0.1225},
+  "breaker": {"count": 10, "alignment": "center", "bottom": 0.88, "pitch": 0.052},
+  "reset": {"right": 0.072, "bottom": [1.01, 1.16, 1.49], "reference": "outer_frame_center"},
+  "lamp": {"radius": 0.014, "thickness": 0.005, "height_above_breaker": 0.055},
+  "nameplate": {
+    "width": 0.048, "height": 0.012, "thickness": 0.005, "center_below_component": 0.020,
+    "font": {"family": "SimSun", "file": "/mnt/c/Windows/Fonts/simsun.ttc", "index": 0}
+  },
+  "demo_instances": {"yaban": "yaban_r1_c1", "selector": "selector_01", "breaker": "breaker_10", "reset": "reset_01"}
+}

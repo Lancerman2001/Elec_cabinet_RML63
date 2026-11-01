@@ -1,0 +1,23 @@
+# All geometry in metres. Origin: rear mounting face, +X out, +Y right, +Z up.
+frame_width: 0.048
+frame_height: 0.049
+frame_depth: 0.007
+frame_radius: 0.0015
+plate_width: 0.045
+plate_height: 0.046
+shaft_diameter: 0.005
+shaft_length: 0.004
+hub_diameter: 0.022
+hub_depth: 0.006
+handle_length: 0.040
+handle_depth: 0.016
+handle_center_width: 0.010
+handle_root_width: 0.006
+handle_tip_width: 0.004
+screw_diameter: 0.005
+# Estimated equivalent masses and inertias, not measured contact forces.
+frame_mass: 0.025
+rotor_mass: 0.010
+rotor_ixx: 0.0000009
+rotor_iyy: 0.0000013
+rotor_izz: 0.0000007

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<sdf version="1.6"><world name="default">
+  <physics name="small_parts" type="ode">
+    <max_step_size>0.001</max_step_size><real_time_update_rate>1000</real_time_update_rate>
+    <ode><solver><type>quick</type><iters>100</iters></solver>
+      <constraints><cfm>0</cfm><erp>0.2</erp><contact_max_correcting_vel>0.01</contact_max_correcting_vel><contact_surface_layer>0.00001</contact_surface_layer></constraints>
+    </ode>
+  </physics>
+  <scene><ambient>0.6 0.6 0.6 1</ambient><background>0.22 0.25 0.29 1</background><shadows>true</shadows></scene>
+  <light name="inspection_light" type="directional"><pose>0 0 2 0 0 0</pose><diffuse>0.8 0.8 0.8 1</diffuse><direction>-0.3 0.3 -1</direction><cast_shadows>true</cast_shadows></light>
+  <model name="ground"><static>true</static><link name="ground"><collision name="ground"><geometry><plane><normal>0 0 1</normal><size>1 1</size></plane></geometry></collision><visual name="ground"><geometry><plane><normal>0 0 1</normal><size>1 1</size></plane></geometry><material><ambient>0.35 0.37 0.40 1</ambient><diffuse>0.35 0.37 0.40 1</diffuse></material></visual></link></model>
+  <gui fullscreen="false"><camera name="user_camera"><pose>0.085 -0.13 0.16 0 0.45 2.15</pose><view_controller>orbit</view_controller></camera></gui>
+</world></sdf>

@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- SI units. Shape dimensions are deliberately explicit; see docs/modeling.md. -->
+  <xacro:macro name="yb_inertia" params="m sx sy sz xyz">
+    <inertial><origin xyz="${xyz}"/><mass value="${m}"/>
+      <inertia ixx="${m*(sy*sy+sz*sz)/12}" ixy="0" ixz="0"
+               iyy="${m*(sx*sx+sz*sz)/12}" iyz="0" izz="${m*(sx*sx+sy*sy)/12}"/>
+    </inertial>
+  </xacro:macro>
+  <xacro:macro name="yb_box" params="name xyz size material collision:=true">
+    <visual><origin xyz="${xyz}"/><geometry><box size="${size}"/></geometry><material name="${material}"/></visual>
+    <xacro:if value="${collision}"><collision><origin xyz="${xyz}"/><geometry><box size="${size}"/></geometry></collision></xacro:if>
+  </xacro:macro>
+  <xacro:macro name="yb_cylinder" params="name xyz radius length material collision:=true">
+    <visual><origin xyz="${xyz}"/><geometry><cylinder radius="${radius}" length="${length}"/></geometry><material name="${material}"/></visual>
+    <xacro:if value="${collision}"><collision><origin xyz="${xyz}"/><geometry><cylinder radius="${radius}" length="${length}"/></geometry></collision></xacro:if>
+  </xacro:macro>
+  <xacro:macro name="yb_mesh" params="name file xyz material">
+    <visual><origin xyz="${xyz}"/><geometry><mesh filename="package://yaban_gazebo/meshes/${file}.stl"/></geometry><material name="${material}"/></visual>
+  </xacro:macro>
+  <xacro:macro name="yb_box_collision" params="name xyz size rpy:='0 0 0'">
+    <collision><origin xyz="${xyz}" rpy="${rpy}"/><geometry><box size="${size}"/></geometry></collision>
+  </xacro:macro>
+  <xacro:macro name="yb_ring_collision" params="name x radius width thickness n:=16 i:=0">
+    <xacro:if value="${i &lt; n}">
+      <xacro:property name="a" value="${2*pi*i/n}"/>
+      <xacro:yb_box_collision name="${name}_${i}" xyz="${x+radius*cos(a)} ${radius*sin(a)} 0"
+        size="${width} ${2*radius*tan(pi/n)} ${thickness}" rpy="0 0 ${a}"/>
+      <xacro:yb_ring_collision name="${name}" x="${x}" radius="${radius}" width="${width}" thickness="${thickness}" n="${n}" i="${i+1}"/>
+    </xacro:if>
+  </xacro:macro>
+  <xacro:macro name="yb_ribs" params="prefix material i:=0">
+    <xacro:if value="${i &lt; 10}">
+      <xacro:property name="a" value="${2*pi*i/10}"/>
+      <!-- Main cap OD10; ribs increase maximum grasp envelope to OD11.6 mm. -->
+      <xacro:yb_cylinder name="${prefix}rib_${i}" xyz="${0.005*cos(a)} ${0.005*sin(a)} 0.0095"
+        radius="0.0008" length="0.0084" material="${material}"/>
+      <xacro:yb_ribs prefix="${prefix}" material="${material}" i="${i+1}"/>
+    </xacro:if>
+  </xacro:macro>
+  <xacro:macro name="yb_knob_geometry" params="prefix material">
+    <!-- Local zero at underside of the neck: z=15 mm in the tightened assembly. -->
+    <xacro:yb_cylinder name="${prefix}neck" xyz="0 0 0.0025" radius="0.004" length="0.005" material="${material}"/>
+    <xacro:yb_cylinder name="${prefix}cap" xyz="0 0 0.0095" radius="0.005" length="0.009" material="${material}"/>
+    <xacro:yb_ribs prefix="${prefix}" material="${material}"/>
+  </xacro:macro>
+  <xacro:macro name="yb_surface" params="link material">
+    <gazebo reference="${link}">
+      <visual><material>
+        <ambient>${'0.48 0.51 0.54 1' if material == 'Gazebo/Grey' else '0.55 0.58 0.42 1'}</ambient>
+        <diffuse>${'0.68 0.71 0.74 1' if material == 'Gazebo/Grey' else '0.78 0.80 0.61 1'}</diffuse>
+        <specular>0.25 0.25 0.25 1</specular>
+      </material></visual>
+      <gravity>false</gravity>
+      <selfCollide>false</selfCollide><mu1>0.7</mu1><mu2>0.7</mu2>
+      <kp>100000</kp><kd>1</kd><maxVel>0.01</maxVel><minDepth>0.00001</minDepth>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="yaban" params="parent prefix:=yaban_ robot_namespace:=/yaban enable_plugin:=true demo_control:=false *origin">
+    <xacro:property name="spacing" value="0.0315"/>
+    <xacro:property name="ivory" value="${prefix}ivory"/>
+    <xacro:property name="steel" value="${prefix}steel"/>
+    <material name="${ivory}"><color rgba="0.78 0.80 0.61 1"/></material>
+    <material name="${steel}"><color rgba="0.68 0.71 0.74 1"/></material>
+    <link name="${prefix}base_link">
+      <xacro:yb_inertia m="0.025" sx="0.045" sy="0.0135" sz="0.0435" xyz="0 0 -0.007"/>
+      <xacro:yb_cylinder name="left_pillar" xyz="${-spacing/2} 0 0.006" radius="0.00675" length="0.012" material="${ivory}"/>
+      <xacro:yb_cylinder name="right_pillar" xyz="${spacing/2} 0 0.006" radius="0.00675" length="0.012" material="${ivory}"/>
+      <xacro:yb_mesh name="bridge" file="base_bridge" xyz="0 0 0.0015" material="${ivory}"/>
+      <xacro:yb_box_collision name="bridge_left" xyz="-0.008925 0 0.0015" size="0.01365 0.0125 0.003"/>
+      <xacro:yb_box_collision name="bridge_right" xyz="0.008925 0 0.0015" size="0.01365 0.0125 0.003"/>
+      <xacro:yb_box_collision name="bridge_front" xyz="0 -0.004175 0.0015" size="0.0042 0.00415 0.003"/>
+      <xacro:yb_box_collision name="bridge_back" xyz="0 0.004175 0.0015" size="0.0042 0.00415 0.003"/>
+      <xacro:yb_cylinder name="left_rear_sleeve" xyz="${-spacing/2} 0 -0.00575" radius="0.004" length="0.0115" material="${ivory}"/>
+      <xacro:yb_cylinder name="right_rear_sleeve" xyz="${spacing/2} 0 -0.00575" radius="0.004" length="0.0115" material="${ivory}"/>
+      <!-- Molded stop tab sits on the opposite side of the free-end opening path. -->
+      <xacro:yb_box name="left_stop" xyz="${-spacing/2} 0.006 0.013" size="0.004 0.0015 0.002" material="${ivory}"/>
+    </link>
+    <joint name="${prefix}mount_joint" type="fixed"><parent link="${parent}"/><child link="${prefix}base_link"/><xacro:insert_block name="origin"/></joint>
+    <xacro:yb_surface link="${prefix}base_link" material="Gazebo/Beige"/>
+
+    <xacro:macro name="yb_terminal" params="side x">
+      <link name="${prefix}${side}_terminal_link">
+        <xacro:yb_inertia m="0.008" sx="0.008" sy="0.008" sz="0.05" xyz="0 0 -0.006"/>
+        <xacro:yb_cylinder name="${side}_stud" xyz="0 0 -0.005" radius="0.002" length="0.053" material="${steel}"/>
+        <xacro:yb_mesh name="${side}_contact_lower" file="washer" xyz="0 0 0.0125" material="${steel}"/>
+        <xacro:yb_mesh name="${side}_rear_washer1" file="washer" xyz="0 0 -0.012" material="${steel}"/>
+        <xacro:yb_mesh name="${side}_rear_nut1" file="nut_m4" xyz="0 0 -0.0144" material="${steel}"/>
+        <xacro:yb_mesh name="${side}_rear_nut2" file="nut_m4" xyz="0 0 -0.0172" material="${steel}"/>
+        <xacro:yb_mesh name="${side}_rear_washer2" file="washer" xyz="0 0 -0.0195" material="${steel}"/>
+        <xacro:yb_mesh name="${side}_rear_nut3" file="nut_m4" xyz="0 0 -0.0214" material="${steel}"/>
+      </link>
+      <joint name="${prefix}${side}_terminal_mount" type="fixed"><parent link="${prefix}base_link"/><child link="${prefix}${side}_terminal_link"/><origin xyz="${x} 0 0"/></joint>
+      <xacro:yb_surface link="${prefix}${side}_terminal_link" material="Gazebo/Grey"/>
+    </xacro:macro>
+    <xacro:yb_terminal side="left" x="${-spacing/2}"/>
+    <xacro:yb_terminal side="right" x="${spacing/2}"/>
+
+    <!-- 0.7 mm/revolution helical motion represented by a revolute+prismatic pair. -->
+    <link name="${prefix}left_knob_carrier_link">
+      <xacro:yb_inertia m="0.0005" sx="0.004" sy="0.004" sz="0.002" xyz="0 0 0"/>
+    </link>
+    <joint name="${prefix}left_knob_joint" type="revolute">
+      <parent link="${prefix}base_link"/><child link="${prefix}left_knob_carrier_link"/>
+      <origin xyz="${-spacing/2} 0 0.015"/><axis xyz="0 0 1"/>
+      <limit lower="0" upper="${4*pi}" effort="0.15" velocity="3.141592654"/>
+      <dynamics damping="0.00001" friction="0.00005"/>
+    </joint>
+    <link name="${prefix}left_knob_link">
+      <xacro:yb_inertia m="0.003" sx="0.0116" sy="0.0116" sz="0.014" xyz="0 0 0.008"/>
+      <xacro:yb_knob_geometry prefix="left_" material="${ivory}"/>
+    </link>
+    <joint name="${prefix}left_knob_lift_joint" type="prismatic">
+      <parent link="${prefix}left_knob_carrier_link"/><child link="${prefix}left_knob_link"/>
+      <axis xyz="0 0 1"/><limit lower="0" upper="0.0014" effort="20" velocity="0.001"/>
+      <mimic joint="${prefix}left_knob_joint" multiplier="${0.0007/(2*pi)}" offset="0"/>
+    </joint>
+    <link name="${prefix}left_upper_washer_link">
+      <xacro:yb_inertia m="0.0004" sx="0.01" sy="0.01" sz="0.001" xyz="0 0 0"/>
+      <xacro:yb_mesh name="left_upper_washer" file="washer" xyz="0 0 0" material="${steel}"/>
+    </link>
+    <joint name="${prefix}left_upper_washer_mount" type="fixed"><parent link="${prefix}left_knob_link"/><child link="${prefix}left_upper_washer_link"/><origin xyz="0 0 -0.0005"/></joint>
+    <xacro:yb_surface link="${prefix}left_knob_carrier_link" material="Gazebo/Beige"/>
+    <xacro:yb_surface link="${prefix}left_knob_link" material="Gazebo/Beige"/>
+    <xacro:yb_surface link="${prefix}left_upper_washer_link" material="Gazebo/Grey"/>
+
+    <link name="${prefix}right_knob_link">
+      <xacro:yb_inertia m="0.003" sx="0.0116" sy="0.0116" sz="0.014" xyz="0 0 0.008"/>
+      <xacro:yb_knob_geometry prefix="right_" material="${ivory}"/>
+    </link>
+    <joint name="${prefix}right_knob_mount" type="fixed"><parent link="${prefix}base_link"/><child link="${prefix}right_knob_link"/><origin xyz="${spacing/2} 0 0.015"/></joint>
+    <link name="${prefix}right_upper_washer_link">
+      <xacro:yb_inertia m="0.0004" sx="0.01" sy="0.01" sz="0.001" xyz="0 0 0"/>
+      <xacro:yb_mesh name="right_upper_washer" file="washer" xyz="0 0 0" material="${steel}"/>
+    </link>
+    <joint name="${prefix}right_upper_washer_mount" type="fixed"><parent link="${prefix}right_knob_link"/><child link="${prefix}right_upper_washer_link"/><origin xyz="0 0 -0.0005"/></joint>
+    <xacro:yb_surface link="${prefix}right_knob_link" material="Gazebo/Beige"/>
+    <xacro:yb_surface link="${prefix}right_upper_washer_link" material="Gazebo/Grey"/>
+
+    <link name="${prefix}blade_link">
+      <xacro:yb_inertia m="0.0033" sx="0.045" sy="0.010" sz="0.001" xyz="${-spacing/2} 0 0"/>
+      <xacro:yb_mesh name="blade" file="blade" xyz="0 0 0" material="${steel}"/>
+      <!-- Convex collision pieces preserve the lateral U opening and pivot hole. -->
+      <xacro:yb_box_collision name="blade_main" xyz="-0.01505 0 0" size="0.0227 0.010 0.001"/>
+      <xacro:yb_box_collision name="fork_bottom" xyz="-0.032325 -0.00375 0" size="0.01185 0.0025 0.001"/>
+      <xacro:yb_box_collision name="fork_outer" xyz="-0.036125 0.00125 0" size="0.00425 0.0075 0.001"/>
+      <xacro:yb_box_collision name="fork_inner" xyz="-0.0277 0.00125 0" size="0.0026 0.0075 0.001"/>
+      <xacro:yb_ring_collision name="pivot" x="0" radius="0.0037" width="0.0026" thickness="0.001"/>
+    </link>
+    <joint name="${prefix}blade_joint" type="revolute">
+      <parent link="${prefix}base_link"/><child link="${prefix}blade_link"/>
+      <origin xyz="${spacing/2} 0 0.0135"/><axis xyz="0 0 1"/>
+      <limit lower="0" upper="${2*pi/3}" effort="0.08" velocity="1"/>
+      <dynamics damping="0.00001" friction="0.00002"/>
+    </joint>
+    <xacro:yb_surface link="${prefix}blade_link" material="Gazebo/Grey"/>
+    <link name="${prefix}handle_link">
+      <xacro:yb_inertia m="0.002" sx="0.020" sy="0.010" sz="0.017" xyz="0 0 0.005"/>
+      <!-- Sleeve: z=12..16.5. Handle above it: 12.5 mm, top at z=29. -->
+      <xacro:yb_box name="insulating_sleeve" xyz="0 0 0.00075" size="0.020 0.010 0.0045" material="${ivory}"/>
+      <xacro:yb_box name="handle_front_wall" xyz="0 -0.0035 0.0085" size="0.009 0.002 0.011" material="${ivory}"/>
+      <xacro:yb_box name="handle_back_wall" xyz="0 0.0035 0.0085" size="0.009 0.002 0.011" material="${ivory}"/>
+      <xacro:yb_box name="handle_top" xyz="0 0 0.01475" size="0.009 0.009 0.0015" material="${ivory}"/>
+    </link>
+    <joint name="${prefix}handle_mount" type="fixed"><parent link="${prefix}blade_link"/><child link="${prefix}handle_link"/><origin xyz="${-spacing/2} 0 0"/></joint>
+    <xacro:yb_surface link="${prefix}handle_link" material="Gazebo/Beige"/>
+    <!-- Stable task frames: all normals point out of the cabinet (+Z). -->
+    <link name="${prefix}knob_grasp_frame"/>
+    <joint name="${prefix}knob_grasp_mount" type="fixed"><parent link="${prefix}left_knob_link"/><child link="${prefix}knob_grasp_frame"/><origin xyz="0 0 0.0095"/></joint>
+    <link name="${prefix}handle_grasp_frame"/>
+    <joint name="${prefix}handle_grasp_mount" type="fixed"><parent link="${prefix}handle_link"/><child link="${prefix}handle_grasp_frame"/><origin xyz="0 0 0.010"/></joint>
+
+    <xacro:if value="${enable_plugin}">
+      <gazebo><plugin name="${prefix}interaction" filename="libyaban_interaction_plugin.so">
+        <jointPrefix>${prefix}</jointPrefix><robotNamespace>${robot_namespace}</robotNamespace>
+        <screwPitch>0.0007</screwPitch><releaseTurns>0.5</releaseTurns><demoControl>${demo_control}</demoControl>
+      </plugin></gazebo>
+    </xacro:if>
+  </xacro:macro>
+</robot>

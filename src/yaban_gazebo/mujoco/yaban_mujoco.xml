@@ -1,0 +1,130 @@
+<mujoco model="yaban_press_plate">
+  <!-- Stand-alone MJCF. Dimensions are in metres and match urdf/yaban_macro.xacro. -->
+  <compiler angle="radian" coordinate="local" meshdir="assets" autolimits="true"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast"/>
+  <visual>
+    <global azimuth="135" elevation="-28" offwidth="1280" offheight="960"/>
+    <headlight ambient="0.38 0.38 0.38" diffuse="0.62 0.62 0.62" specular="0.18 0.18 0.18"/>
+    <map znear="0.002"/>
+  </visual>
+
+  <default>
+    <geom friction="0.7 0.01 0.001" condim="3"/>
+    <joint damping="0.003" armature="0.00001"/>
+  </default>
+
+  <asset>
+    <material name="ivory" rgba="0.78 0.80 0.61 1" specular="0.18" shininess="0.35"/>
+    <material name="steel" rgba="0.58 0.62 0.66 1" specular="0.72" shininess="0.70"/>
+    <material name="cabinet" rgba="0.14 0.19 0.22 1"/>
+    <material name="ground" rgba="0.12 0.14 0.16 1"/>
+    <mesh name="base_bridge_mesh" file="base_bridge.obj"/>
+    <mesh name="blade_mesh" file="blade.obj"/>
+    <mesh name="washer_mesh" file="washer.obj"/>
+    <mesh name="nut_m4_mesh" file="nut_m4.obj"/>
+  </asset>
+
+  <worldbody>
+    <light name="key" pos="0.10 -0.12 0.18" dir="-0.4 0.5 -0.7" directional="true"/>
+    <light name="fill" pos="-0.08 0.08 0.12" dir="0.4 -0.4 -0.5" directional="true" diffuse="0.35 0.35 0.35"/>
+    <geom name="ground" type="plane" size="0.5 0.5 0.02" pos="0 0 0" material="ground" contype="1" conaffinity="1"/>
+    <camera name="inspection" pos="0.085 -0.105 0.085" xyaxes="0.78 0.63 0 -0.33 0.41 0.85"/>
+    <camera name="top" pos="0 0 0.20" xyaxes="1 0 0 0 1 0"/>
+
+    <!-- Base installation plane.  World Z=60 mm keeps the rear studs clear of the ground. -->
+    <body name="yaban_base" pos="0 0 0.060">
+      <geom name="left_pillar" type="cylinder" pos="-0.01575 0 0.006" size="0.00675 0.006" material="ivory"/>
+      <geom name="right_pillar" type="cylinder" pos="0.01575 0 0.006" size="0.00675 0.006" material="ivory"/>
+      <geom name="base_bridge_visual" type="mesh" mesh="base_bridge_mesh" pos="0 0 0.0015" material="ivory" contype="0" conaffinity="0"/>
+      <!-- Convex bridge pieces retain the central clearance opening for contacts. -->
+      <geom name="bridge_left_collision" type="box" pos="-0.008925 0 0.0015" size="0.006825 0.00625 0.0015" material="ivory"/>
+      <geom name="bridge_right_collision" type="box" pos="0.008925 0 0.0015" size="0.006825 0.00625 0.0015" material="ivory"/>
+      <geom name="bridge_front_collision" type="box" pos="0 -0.004175 0.0015" size="0.0021 0.002075 0.0015" material="ivory"/>
+      <geom name="bridge_back_collision" type="box" pos="0 0.004175 0.0015" size="0.0021 0.002075 0.0015" material="ivory"/>
+      <geom name="left_rear_sleeve" type="cylinder" pos="-0.01575 0 -0.00575" size="0.004 0.00575" material="ivory"/>
+      <geom name="right_rear_sleeve" type="cylinder" pos="0.01575 0 -0.00575" size="0.004 0.00575" material="ivory"/>
+      <geom name="left_stop" type="box" pos="-0.01575 0.006 0.013" size="0.002 0.00075 0.001" material="ivory"/>
+
+      <!-- The low-detail threaded portions are visual references; they are normally inside the cabinet. -->
+      <body name="left_terminal" pos="-0.01575 0 0">
+        <geom name="left_stud" type="cylinder" pos="0 0 -0.005" size="0.002 0.0265" material="steel"/>
+        <geom name="left_contact_washer" type="mesh" mesh="washer_mesh" pos="0 0 0.0125" material="steel" contype="0" conaffinity="0"/>
+        <geom name="left_nut_1" type="mesh" mesh="nut_m4_mesh" pos="0 0 -0.0144" material="steel" contype="0" conaffinity="0"/>
+        <geom name="left_nut_2" type="mesh" mesh="nut_m4_mesh" pos="0 0 -0.0172" material="steel" contype="0" conaffinity="0"/>
+        <geom name="left_nut_3" type="mesh" mesh="nut_m4_mesh" pos="0 0 -0.0214" material="steel" contype="0" conaffinity="0"/>
+      </body>
+      <body name="right_terminal" pos="0.01575 0 0">
+        <geom name="right_stud" type="cylinder" pos="0 0 -0.005" size="0.002 0.0265" material="steel"/>
+        <geom name="right_contact_washer" type="mesh" mesh="washer_mesh" pos="0 0 0.0125" material="steel" contype="0" conaffinity="0"/>
+        <geom name="right_nut_1" type="mesh" mesh="nut_m4_mesh" pos="0 0 -0.0144" material="steel" contype="0" conaffinity="0"/>
+        <geom name="right_nut_2" type="mesh" mesh="nut_m4_mesh" pos="0 0 -0.0172" material="steel" contype="0" conaffinity="0"/>
+        <geom name="right_nut_3" type="mesh" mesh="nut_m4_mesh" pos="0 0 -0.0214" material="steel" contype="0" conaffinity="0"/>
+      </body>
+
+      <!-- 0.7 mm per full turn: the controller writes lift = knob * 0.0007 / (2*pi). -->
+      <body name="left_knob_carrier" pos="-0.01575 0 0.015">
+        <joint name="left_knob_joint" type="hinge" axis="0 0 1" range="0 12.5663706144"/>
+        <inertial pos="0 0 0" mass="0.0005" diaginertia="0.00000001 0.00000001 0.00000001"/>
+        <body name="left_knob">
+          <joint name="left_knob_lift_joint" type="slide" axis="0 0 1" range="0 0.0014"/>
+          <geom name="left_knob_neck" type="cylinder" pos="0 0 0.0025" size="0.004 0.0025" material="ivory"/>
+          <geom name="left_knob_cap" type="cylinder" pos="0 0 0.0095" size="0.005 0.0045" material="ivory"/>
+          <geom name="left_upper_washer" type="mesh" mesh="washer_mesh" pos="0 0 -0.0005" material="steel" contype="0" conaffinity="0"/>
+          <site name="left_knob_grasp" pos="0 0 0.014" size="0.002" rgba="0.1 0.8 0.4 0.6"/>
+          <geom name="left_rib_0" type="cylinder" pos="0.005 0 0.0095" size="0.0008 0.0042" material="ivory"/>
+          <geom name="left_rib_1" type="cylinder" pos="0.004045 0.002939 0.0095" size="0.0008 0.0042" material="ivory"/>
+          <geom name="left_rib_2" type="cylinder" pos="0.001545 0.004755 0.0095" size="0.0008 0.0042" material="ivory"/>
+          <geom name="left_rib_3" type="cylinder" pos="-0.001545 0.004755 0.0095" size="0.0008 0.0042" material="ivory"/>
+          <geom name="left_rib_4" type="cylinder" pos="-0.004045 0.002939 0.0095" size="0.0008 0.0042" material="ivory"/>
+          <geom name="left_rib_5" type="cylinder" pos="-0.005 0 0.0095" size="0.0008 0.0042" material="ivory"/>
+          <geom name="left_rib_6" type="cylinder" pos="-0.004045 -0.002939 0.0095" size="0.0008 0.0042" material="ivory"/>
+          <geom name="left_rib_7" type="cylinder" pos="-0.001545 -0.004755 0.0095" size="0.0008 0.0042" material="ivory"/>
+          <geom name="left_rib_8" type="cylinder" pos="0.001545 -0.004755 0.0095" size="0.0008 0.0042" material="ivory"/>
+          <geom name="left_rib_9" type="cylinder" pos="0.004045 -0.002939 0.0095" size="0.0008 0.0042" material="ivory"/>
+        </body>
+      </body>
+
+      <body name="right_knob" pos="0.01575 0 0.015">
+        <geom name="right_knob_neck" type="cylinder" pos="0 0 0.0025" size="0.004 0.0025" material="ivory"/>
+        <geom name="right_knob_cap" type="cylinder" pos="0 0 0.0095" size="0.005 0.0045" material="ivory"/>
+        <geom name="right_upper_washer" type="mesh" mesh="washer_mesh" pos="0 0 -0.0005" material="steel" contype="0" conaffinity="0"/>
+        <geom name="right_rib_0" type="cylinder" pos="0.005 0 0.0095" size="0.0008 0.0042" material="ivory"/>
+        <geom name="right_rib_1" type="cylinder" pos="0.004045 0.002939 0.0095" size="0.0008 0.0042" material="ivory"/>
+        <geom name="right_rib_2" type="cylinder" pos="0.001545 0.004755 0.0095" size="0.0008 0.0042" material="ivory"/>
+        <geom name="right_rib_3" type="cylinder" pos="-0.001545 0.004755 0.0095" size="0.0008 0.0042" material="ivory"/>
+        <geom name="right_rib_4" type="cylinder" pos="-0.004045 0.002939 0.0095" size="0.0008 0.0042" material="ivory"/>
+        <geom name="right_rib_5" type="cylinder" pos="-0.005 0 0.0095" size="0.0008 0.0042" material="ivory"/>
+        <geom name="right_rib_6" type="cylinder" pos="-0.004045 -0.002939 0.0095" size="0.0008 0.0042" material="ivory"/>
+        <geom name="right_rib_7" type="cylinder" pos="-0.001545 -0.004755 0.0095" size="0.0008 0.0042" material="ivory"/>
+        <geom name="right_rib_8" type="cylinder" pos="0.001545 -0.004755 0.0095" size="0.0008 0.0042" material="ivory"/>
+        <geom name="right_rib_9" type="cylinder" pos="0.004045 -0.002939 0.0095" size="0.0008 0.0042" material="ivory"/>
+      </body>
+
+      <!-- Pivot is on the right terminal.  The metal strip and white central handle rotate as one body. -->
+      <body name="blade" pos="0.01575 0 0.0135">
+        <joint name="blade_joint" type="hinge" axis="0 0 1" range="0 2.09439510239"/>
+        <geom name="blade_visual" type="mesh" mesh="blade_mesh" material="steel" contype="0" conaffinity="0"/>
+        <!-- Simplified convex contact pieces, leaving the U-slot and pivot opening free. -->
+        <geom name="blade_main_collision" type="box" pos="-0.01505 0 0" size="0.01135 0.005 0.0005" material="steel"/>
+        <geom name="blade_fork_lower_collision" type="box" pos="-0.032325 -0.00375 0" size="0.005925 0.00125 0.0005" material="steel"/>
+        <geom name="blade_fork_outer_collision" type="box" pos="-0.036125 0.00125 0" size="0.002125 0.00375 0.0005" material="steel"/>
+        <geom name="blade_fork_inner_collision" type="box" pos="-0.0277 0.00125 0" size="0.0013 0.00375 0.0005" material="steel"/>
+        <body name="blade_handle" pos="-0.01575 0 0">
+          <geom name="handle_sleeve" type="box" pos="0 0 0.00075" size="0.010 0.005 0.00225" material="ivory"/>
+          <geom name="handle_front_wall" type="box" pos="0 -0.0035 0.0085" size="0.0045 0.001 0.0055" material="ivory"/>
+          <geom name="handle_back_wall" type="box" pos="0 0.0035 0.0085" size="0.0045 0.001 0.0055" material="ivory"/>
+          <geom name="handle_top" type="box" pos="0 0 0.01475" size="0.0045 0.0045 0.00075" material="ivory"/>
+          <site name="blade_handle_grasp" pos="0 0 0.010" size="0.002" rgba="0.95 0.45 0.1 0.6"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <!-- qpos order: left knob rotation, left-knob lift, blade rotation. -->
+  <keyframe>
+    <key name="initial" qpos="0 0 0"/>
+    <key name="loose" qpos="3.14159265359 0.00035 0"/>
+    <key name="withdrawn" qpos="3.14159265359 0.00035 1.57079632679"/>
+    <key name="blade_limit" qpos="3.14159265359 0.00035 2.09439510239"/>
+  </keyframe>
+</mujoco>

@@ -1,0 +1,29 @@
+electrical_cabinet:
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # One position controller per joint keeps the command-to-joint mapping
+  # explicit. JointGroupPositionController may reorder handles internally.
+  button_position_controller:
+    type: position_controllers/JointPositionController
+    joint: button_press_joint
+
+  handle_pop_position_controller:
+    type: position_controllers/JointPositionController
+    joint: handle_pop_joint
+
+  handle_turn_position_controller:
+    type: position_controllers/JointPositionController
+    joint: handle_turn_joint
+
+  door_position_controller:
+    type: position_controllers/JointPositionController
+    joint: door_hinge_joint
+
+  gazebo_ros_control:
+    pid_gains:
+      button_press_joint: {p: 200.0, i: 0.0, d: 2.0}
+      handle_pop_joint: {p: 80.0, i: 0.0, d: 1.0}
+      handle_turn_joint: {p: 80.0, i: 0.0, d: 1.0}
+      door_hinge_joint: {p: 120.0, i: 0.0, d: 2.0}

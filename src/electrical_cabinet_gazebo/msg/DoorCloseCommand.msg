@@ -1,0 +1,8 @@
+uint8 START_CLOSE=1
+uint8 COMMIT_DOOR_RETURN=2
+uint8 COMMIT_HANDLE_RETURN=3
+uint8 COMMIT_HANDLE_LATCH=4
+uint8 FORCE_CLOSED=5
+
+uint32 request_id
+uint8 command

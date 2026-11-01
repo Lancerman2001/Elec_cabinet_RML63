@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="grip_collision.xacro"/>
+  <xacro:macro name="br_box" params="xyz size collision:=true">
+    <visual><origin xyz="${xyz}"/><geometry><box size="${size}"/></geometry></visual>
+    <xacro:if value="${collision}"><collision><origin xyz="${xyz}"/><geometry><box size="${size}"/></geometry></collision></xacro:if>
+  </xacro:macro>
+  <xacro:macro name="br_cylinder" params="xyz radius length collision:=true">
+    <visual><origin xyz="${xyz}" rpy="${pi/2} 0 0"/><geometry><cylinder radius="${radius}" length="${length}"/></geometry></visual>
+    <xacro:if value="${collision}"><collision><origin xyz="${xyz}" rpy="${pi/2} 0 0"/><geometry><cylinder radius="${radius}" length="${length}"/></geometry></collision></xacro:if>
+  </xacro:macro>
+  <xacro:macro name="br_inertia" params="mass size xyz:='0 0 0'">
+    <inertial><origin xyz="${xyz}"/><mass value="${mass}"/><inertia ixx="${mass*(size[1]**2+size[2]**2)/12}" iyy="${mass*(size[0]**2+size[2]**2)/12}" izz="${mass*(size[0]**2+size[1]**2)/12}" ixy="0" ixz="0" iyz="0"/></inertial>
+  </xacro:macro>
+  <xacro:macro name="br_mesh" params="file xyz">
+    <visual><origin xyz="${xyz}"/><geometry><mesh filename="package://io_gazebo/meshes/${file}"/></geometry></visual>
+  </xacro:macro>
+  <xacro:macro name="br_surface" params="link color">
+    <gazebo reference="${link}">
+      <visual><material><ambient>${color}</ambient><diffuse>${color}</diffuse><specular>0.12 0.12 0.12 1</specular></material></visual>
+      <selfCollide>false</selfCollide><mu1>0.65</mu1><mu2>0.65</mu2>
+      <kp>100000</kp><kd>1</kd><maxVel>0.03</maxVel><minDepth>0.000005</minDepth>
+    </gazebo>
+  </xacro:macro>
+  <xacro:macro name="circuit_breaker" params="parent prefix:=breaker_ robot_namespace:=/breaker enable_plugin:=true demo_control:=false config_file:='$(find io_gazebo)/config/breaker.yaml' *origin">
+    <xacro:property name="c" value="${xacro.load_yaml(config_file)}"/>
+    <xacro:property name="iv" value="${xacro.load_yaml('$(find io_gazebo)/config/inertia.yaml')}"/>
+    <xacro:property name="pw" value="${c['pole_width']}"/>
+    <xacro:property name="h" value="${c['body_height']}"/>
+    <xacro:property name="d" value="${c['body_depth']}"/>
+    <xacro:property name="lh" value="${c['label_height']}"/>
+    <xacro:property name="a" value="${c['half_angle_deg']*pi/180}"/>
+    <xacro:property name="wall" value="${(pw-c['arm_width'])/2-0.0002}"/>
+    <link name="${prefix}base_link">
+      <xacro:br_inertia mass="${c['body_mass']}" size="${[d,2*pw,h]}" xyz="${d/2} 0 0"/>
+      <xacro:br_mesh file="upper_shell.stl" xyz="${d/2} ${pw/2} ${h/2-lh/2}"/>
+      <xacro:br_mesh file="upper_shell.stl" xyz="${d/2} ${-pw/2} ${h/2-lh/2}"/>
+      <!-- Upper plates, thin rear wall, and lower sill; no solid box across the moving recess. -->
+      <collision><origin xyz="${d/2} 0 ${h/2-lh/2}"/><geometry><box size="${d} ${2*pw} ${lh}"/></geometry></collision>
+      <xacro:br_box xyz="0.004 0 ${-lh/2}" size="0.008 ${2*pw} ${h-lh}"/>
+      <xacro:br_box xyz="${d/2} 0 ${-h/2+0.0008}" size="${d} ${2*pw} 0.0016"/>
+      <xacro:macro name="br_guard" params="y">
+        <xacro:br_box xyz="0.014 ${y} ${-lh/2}" size="0.012 ${wall} ${h-lh-0.001}"/>
+        <xacro:br_cylinder xyz="${c['pivot_x']} ${y} ${c['pivot_z']}" radius="${c['guard_radius']}" length="${wall}"/>
+      </xacro:macro>
+      <xacro:br_guard y="${pw-wall/2}"/><xacro:br_guard y="${wall/2+0.0001}"/>
+      <xacro:br_guard y="${-wall/2-0.0001}"/><xacro:br_guard y="${-pw+wall/2}"/>
+    </link>
+    <joint name="${prefix}mount_joint" type="fixed"><parent link="${parent}"/><child link="${prefix}base_link"/><xacro:insert_block name="origin"/></joint>
+    <xacro:br_surface link="${prefix}base_link" color="0.875 0.875 0.835 1"/>
+
+    <link name="${prefix}label_link">
+      <xacro:br_inertia mass="0.00001" size="${[0.0001,2*pw,lh]}"/>
+      <!-- Keep the original mass/frame without product-label artwork. -->
+    </link>
+    <joint name="${prefix}label_mount" type="fixed"><parent link="${prefix}base_link"/><child link="${prefix}label_link"/></joint>
+    <gazebo reference="${prefix}label_mount"><preserveFixedJoint>true</preserveFixedJoint></gazebo>
+    <link name="${prefix}window_frame_link">
+      <xacro:br_inertia mass="0.00001" size="${[0.0003,0.0036,0.0023]}"/>
+      <xacro:br_box xyz="${d+0.00008} ${pw/2+0.0015} 0.0093" size="0.0001 0.0036 0.0023" collision="false"/>
+      <xacro:br_box xyz="${d+0.00008} ${-pw/2+0.0015} 0.0093" size="0.0001 0.0036 0.0023" collision="false"/>
+    </link>
+    <joint name="${prefix}window_frame_mount" type="fixed"><parent link="${prefix}base_link"/><child link="${prefix}window_frame_link"/></joint>
+    <xacro:br_surface link="${prefix}window_frame_link" color="0.10 0.12 0.12 1"/>
+    <link name="${prefix}indicator_link">
+      <xacro:br_inertia mass="0.00001" size="${[0.0001,0.003,0.0016]}"/>
+      <xacro:br_box xyz="${d+0.00015} ${pw/2+0.0015} 0.0093" size="0.0001 0.0030 0.0016" collision="false"/>
+      <xacro:br_box xyz="${d+0.00015} ${-pw/2+0.0015} 0.0093" size="0.0001 0.0030 0.0016" collision="false"/>
+    </link>
+    <joint name="${prefix}indicator_mount" type="fixed"><parent link="${prefix}base_link"/><child link="${prefix}indicator_link"/></joint>
+    <gazebo reference="${prefix}indicator_mount"><preserveFixedJoint>true</preserveFixedJoint></gazebo>
+    <xacro:br_surface link="${prefix}indicator_link" color="0.015 0.32 0.18 1"/>
+
+    <link name="${prefix}handle_link">
+      <inertial><origin xyz="${iv['center'][0]} 0 0"/><mass value="${iv['mass']}"/><inertia ixx="${iv['ixx']}" iyy="${iv['iyy']}" izz="${iv['izz']}" ixy="0" ixz="0" iyz="0"/></inertial>
+      <xacro:br_cylinder xyz="0 ${pw/2} 0" radius="${c['hub_radius']}" length="${c['arm_width']}"/>
+      <xacro:br_cylinder xyz="0 ${-pw/2} 0" radius="${c['hub_radius']}" length="${c['arm_width']}"/>
+      <xacro:br_mesh file="arm.stl" xyz="0.005 ${pw/2} 0"/>
+      <xacro:br_mesh file="arm.stl" xyz="0.005 ${-pw/2} 0"/>
+      <collision><origin xyz="0.005 ${pw/2} 0"/><geometry><box size="0.013 ${c['arm_width']} 0.0032"/></geometry></collision>
+      <collision><origin xyz="0.005 ${-pw/2} 0"/><geometry><box size="0.013 ${c['arm_width']} 0.0032"/></geometry></collision>
+      <xacro:br_mesh file="grip.stl" xyz="${c['grip_radius']} 0 0"/>
+      <xacro:breaker_grip_collision x="${c['grip_radius']}"/>
+      <xacro:br_mesh file="rib.stl" xyz="${c['grip_radius']+c['grip_depth']/2-0.00010} 0 0.0017"/>
+    </link>
+    <joint name="${prefix}toggle_joint" type="revolute">
+      <parent link="${prefix}base_link"/><child link="${prefix}handle_link"/>
+      <origin xyz="${c['pivot_x']} 0 ${c['pivot_z']}"/><axis xyz="0 1 0"/>
+      <limit lower="${-a}" upper="${a}" effort="${c['effort_limit']}" velocity="50"/>
+      <dynamics damping="0" friction="0"/>
+    </joint>
+    <xacro:br_surface link="${prefix}handle_link" color="0.015 0.255 0.76 1"/>
+    <!-- Dark pocket inserts are visual only; no finger-sized opening is obstructed. -->
+    <link name="${prefix}pockets_link">
+      <xacro:br_inertia mass="0.000001" size="${[0.0001,0.014,0.0018]}"/>
+      <xacro:br_box xyz="${c['grip_radius']+c['grip_depth']/2+0.000015} 0.0057 -0.0014" size="0.00003 0.0032 0.0018" collision="false"/>
+      <xacro:br_box xyz="${c['grip_radius']+c['grip_depth']/2+0.000015} -0.0057 -0.0014" size="0.00003 0.0032 0.0018" collision="false"/>
+    </link>
+    <joint name="${prefix}pockets_mount" type="fixed"><parent link="${prefix}handle_link"/><child link="${prefix}pockets_link"/></joint>
+    <xacro:br_surface link="${prefix}pockets_link" color="0.002 0.035 0.15 1"/>
+    <xacro:macro name="br_task_frame" params="name z">
+      <link name="${prefix}${name}"/>
+      <joint name="${prefix}${name}_mount" type="fixed"><parent link="${prefix}handle_link"/><child link="${prefix}${name}"/><origin xyz="${c['grip_radius']} 0 ${z}"/></joint>
+    </xacro:macro>
+    <xacro:br_task_frame name="grip_center" z="0"/>
+    <xacro:br_task_frame name="push_up_contact" z="${-c['grip_height']/2}"/>
+    <xacro:br_task_frame name="push_down_contact" z="${c['grip_height']/2}"/>
+    <xacro:if value="${enable_plugin}">
+      <gazebo><plugin name="${prefix}interaction" filename="libbreaker_interaction_plugin.so">
+        <jointPrefix>${prefix}</jointPrefix><robotNamespace>${robot_namespace}</robotNamespace><demoControl>${demo_control}</demoControl>
+        <halfAngle>${a}</halfAngle><hysteresis>${c['hysteresis_deg']*pi/180}</hysteresis>
+        <peakTorque>${c['peak_torque']}</peakTorque><damping>${c['damping']}</damping><pivotInertia>${iv['pivot_iyy']}</pivotInertia>
+        <demoKp>${c['demo_kp']}</demoKp><demoKd>${c['demo_kd']}</demoKd><demoTorqueLimit>${c['demo_torque_limit']}</demoTorqueLimit><effortLimit>${c['effort_limit']}</effortLimit>
+        <targetSpeed>${c['target_speed']}</targetSpeed><actionTimeout>${c['action_timeout']}</actionTimeout>
+      </plugin></gazebo>
+    </xacro:if>
+  </xacro:macro>
+</robot>

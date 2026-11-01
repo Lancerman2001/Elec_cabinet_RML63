@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="fg_config" value="${xacro.load_yaml('../config/button.yaml')}" lazy_eval="false"/>
+  <xacro:macro name="fg_inertia" params="mass x y z">
+    <inertial><mass value="${mass}"/><inertia ixx="${mass*(y*y+z*z)/12}" ixy="0" ixz="0" iyy="${mass*(x*x+z*z)/12}" iyz="0" izz="${mass*(x*x+y*y)/12}"/></inertial>
+  </xacro:macro>
+  <xacro:macro name="fg_mesh" params="name xyz rgba:='0.59 0.565 0.39 1'">
+    <!-- Leave visual unnamed: Gazebo 11 applies link-level material extensions to its default visual. -->
+    <visual><origin xyz="${xyz}"/><geometry><mesh filename="package://fugui_gazebo/meshes/${name}.stl"/></geometry><material name="${name}_color"><color rgba="${rgba}"/></material></visual>
+  </xacro:macro>
+  <xacro:macro name="fg_material" params="link rgba specular:='0.2 0.2 0.2 1'">
+    <gazebo reference="${link}"><visual><material><ambient>${rgba}</ambient><diffuse>${rgba}</diffuse><specular>${specular}</specular></material></visual></gazebo>
+  </xacro:macro>
+  <xacro:macro name="fg_ring_collision" params="i x length">
+    <!-- Tangential boxes leave a 0.05 mm radial clearance around the cap. -->
+    <xacro:property name="a" value="${i*2*pi/32}"/>
+    <collision><origin xyz="${x} ${.013025*cos(a)} ${-.0065+.013025*sin(a)}" rpy="${a} 0 0"/>
+      <geometry><box size="${length} 0.00195 0.00238"/></geometry>
+    </collision>
+    <xacro:if value="${i &lt; 31}"><xacro:fg_ring_collision i="${i+1}" x="${x}" length="${length}"/></xacro:if>
+  </xacro:macro>
+  <!-- Rear frame centre is the origin. +X faces out, +Z up, positive joint travel is inward. -->
+  <xacro:macro name="fugui_button" params="parent prefix:=fugui_ robot_namespace:=/fugui enable_plugin:=true *origin">
+    <link name="${prefix}frame_link">
+      <xacro:fg_inertia mass=".08" x=".007" y=".07" z=".075"/>
+      <xacro:fg_mesh name="frame" xyz=".0035 0 0"/>
+      <collision><origin xyz=".0035 0 0"/><geometry><box size=".007 .07 .075"/></geometry></collision>
+    </link>
+    <joint name="${prefix}mount_joint" type="fixed"><parent link="${parent}"/><child link="${prefix}frame_link"/><xacro:insert_block name="origin"/></joint>
+    <xacro:fg_material link="${prefix}frame_link" rgba="0.59 0.565 0.39 1"/>
+    <link name="${prefix}insert_link"><xacro:fg_inertia mass=".005" x=".0003" y=".047" z=".047"/>
+      <xacro:fg_mesh name="insert" xyz=".00687 0 -.008" rgba="0.64 0.61 0.44 1"/>
+    </link>
+    <joint name="${prefix}insert_joint" type="fixed"><parent link="${prefix}frame_link"/><child link="${prefix}insert_link"/></joint>
+    <xacro:fg_material link="${prefix}insert_link" rgba="0.64 0.61 0.44 1"/>
+    <link name="${prefix}label_link"><xacro:fg_inertia mass=".001" x=".0003" y=".048" z=".014"/>
+      <xacro:fg_mesh name="label_recess" xyz=".00687 0 .024" rgba="0.25 0.245 0.19 1"/>
+    </link>
+    <joint name="${prefix}label_joint" type="fixed"><parent link="${prefix}frame_link"/><child link="${prefix}label_link"/></joint>
+    <xacro:fg_material link="${prefix}label_link" rgba="0.25 0.245 0.19 1"/>
+    <link name="${prefix}nameplate_link"><xacro:fg_inertia mass=".001" x=".0001" y=".046" z=".012"/>
+      <visual><origin xyz=".00704 0 .024"/><geometry><mesh filename="package://fugui_gazebo/meshes/nameplate.dae"/></geometry></visual>
+    </link>
+    <joint name="${prefix}nameplate_joint" type="fixed"><parent link="${prefix}frame_link"/><child link="${prefix}nameplate_link"/></joint>
+    <link name="${prefix}sleeve_link"><xacro:fg_inertia mass=".02" x=".008" y=".028" z=".028"/>
+      <xacro:fg_mesh name="rear_sleeve" xyz=".007 0 -.0065" rgba="0.055 0.060 0.055 1"/>
+      <xacro:fg_ring_collision i="${0}" x="${.011}" length="${.008}"/>
+    </link>
+    <joint name="${prefix}sleeve_joint" type="fixed"><parent link="${prefix}frame_link"/><child link="${prefix}sleeve_link"/></joint>
+    <xacro:fg_material link="${prefix}sleeve_link" rgba="0.055 0.060 0.055 1"/>
+    <link name="${prefix}guard_link"><xacro:fg_inertia mass=".025" x=".007" y=".028" z=".028"/>
+      <xacro:fg_mesh name="guard_ring" xyz=".015 0 -.0065" rgba="0.67 0.69 0.68 1"/>
+      <xacro:fg_ring_collision i="${0}" x="${.0185}" length="${.007}"/>
+    </link>
+    <joint name="${prefix}guard_joint" type="fixed"><parent link="${prefix}frame_link"/><child link="${prefix}guard_link"/></joint>
+    <xacro:fg_material link="${prefix}guard_link" rgba="0.67 0.69 0.68 1" specular="0.85 0.85 0.85 1"/>
+    <link name="${prefix}button_link">
+      <inertial><mass value=".01"/><inertia ixx=".00000072" ixy="0" ixz="0" iyy=".000000363333" iyz="0" izz=".000000363333"/></inertial>
+      <visual><origin rpy="0 ${pi/2} 0"/><geometry><cylinder radius=".012" length=".002"/></geometry><material name="dark_green"><color rgba=".005 .12 .045 1"/></material></visual>
+      <collision><origin rpy="0 ${pi/2} 0"/><geometry><cylinder radius=".012" length=".002"/></geometry></collision>
+    </link>
+    <joint name="${prefix}press_joint" type="prismatic">
+      <parent link="${prefix}frame_link"/><child link="${prefix}button_link"/>
+      <origin xyz=".021 0 -.0065"/><axis xyz="-1 0 0"/>
+      <limit lower="0" upper="${fg_config['travel_max']}" effort="10" velocity=".1"/>
+      <dynamics damping="0" friction="0"/>
+    </joint>
+    <xacro:fg_material link="${prefix}button_link" rgba=".005 .12 .045 1" specular=".3 .5 .35 1"/>
+    <gazebo reference="${prefix}button_link"><gravity>false</gravity><mu1>0.7</mu1><mu2>0.7</mu2><kp>100000</kp><kd>1</kd><minDepth>0.000001</minDepth><maxVel>0.01</maxVel></gazebo>
+    <xacro:if value="${enable_plugin}"><gazebo><plugin name="${prefix}button_control" filename="libfugui_button_plugin.so"><robotNamespace>${robot_namespace}</robotNamespace><prefix>${prefix}</prefix>
+      <valid_min>${fg_config['valid_min']}</valid_min><valid_max>${fg_config['valid_max']}</valid_max>
+      <rearm_depth>${fg_config['rearm_depth']}</rearm_depth><lamp_duration>${fg_config['lamp_duration']}</lamp_duration>
+      <numerical_tolerance>${fg_config['numerical_tolerance']}</numerical_tolerance>
+      <stiffness>${fg_config['stiffness']}</stiffness><damping>${fg_config['damping']}</damping>
+    </plugin></gazebo></xacro:if>
+  </xacro:macro>
+</robot>

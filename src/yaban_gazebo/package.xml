@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package format="3">
+  <name>yaban_gazebo</name>
+  <version>0.2.0</version>
+  <description>Millimetre-scale electrical cabinet disconnect link with screw and swing motion.</description>
+  <maintainer email="181957883+Lancerman2001@users.noreply.github.com">Lancerman2001</maintainer>
+  <license>BSD-3-Clause</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_plugins</depend>
+  <depend>gazebo_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
+  <depend>ament_index_python</depend>
+  <depend>cabinet_sim_support</depend>
+  <exec_depend>python3-tk</exec_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_ros plugin_path="${prefix}/../../lib" />
+  </export>
+  <build_depend>gazebo_dev</build_depend>
+</package>

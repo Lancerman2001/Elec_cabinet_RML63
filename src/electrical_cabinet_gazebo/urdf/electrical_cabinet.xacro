@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="electrical_cabinet">
+  <!-- The transparent URDF is the canonical geometry and physics template. -->
+  <xacro:arg name="world_fixed" default="false"/>
+  <xacro:include filename="electrical_cabinet.urdf"/>
+  <xacro:if value="$(arg world_fixed)">
+    <link name="cabinet_world"/>
+    <joint name="electrical_cabinet_fixed_to_world" type="fixed">
+      <parent link="cabinet_world"/>
+      <child link="cabinet_base_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+  </xacro:if>
+</robot>

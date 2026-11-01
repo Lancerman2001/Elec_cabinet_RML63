@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot name="protection_signal_reset_button" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="prefix" default="fugui_"/><xacro:arg name="robot_namespace" default="/fugui"/>
+  <xacro:arg name="world_fixed" default="true"/><xacro:arg name="enable_plugin" default="true"/>
+  <xacro:arg name="mount_xyz" default="0 0 .12"/><xacro:arg name="mount_rpy" default="0 0 0"/>
+  <xacro:include filename="fugui_macro.xacro"/>
+  <link name="$(arg prefix)mount_link"><xacro:fg_inertia mass=".001" x=".001" y=".001" z=".001"/></link>
+  <xacro:if value="$(arg world_fixed)"><link name="world"/><joint name="$(arg prefix)world_joint" type="fixed"><parent link="world"/><child link="$(arg prefix)mount_link"/><origin xyz="$(arg mount_xyz)" rpy="$(arg mount_rpy)"/></joint></xacro:if>
+  <xacro:fugui_button parent="$(arg prefix)mount_link" prefix="$(arg prefix)" robot_namespace="$(arg robot_namespace)" enable_plugin="$(arg enable_plugin)"><origin xyz="0 0 0"/></xacro:fugui_button>
+</robot>

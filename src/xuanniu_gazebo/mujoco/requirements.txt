@@ -1,0 +1,4 @@
+# Validated with Python 3.11 in conda environment ros.
+mujoco>=3.12,<3.13
+numpy>=1.24
+PyQt5>=5.15,<5.16

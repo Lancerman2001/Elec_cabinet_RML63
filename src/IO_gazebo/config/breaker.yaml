@@ -1,0 +1,29 @@
+# Geometry in metres; angles in degrees here, converted to radians in Xacro.
+pole_width: 0.0175
+body_height: 0.045
+body_depth: 0.020
+label_height: 0.024
+pivot_x: 0.016
+pivot_z: -0.009
+guard_radius: 0.0075
+arm_width: 0.010
+hub_radius: 0.0062
+# Increased from the initial 11 mm estimate to clear the OD15 guards and upper shell.
+grip_radius: 0.0126
+grip_depth: 0.009
+grip_width: 0.031
+grip_height: 0.008
+grip_round: 0.0013
+half_angle_deg: 40.0
+hysteresis_deg: 10.0
+# Unmeasured engineering estimates, NOT calibrated hardware properties.
+body_mass: 0.030
+handle_mass: 0.006
+peak_torque: 0.015
+damping: 0.0008
+demo_kp: 0.080
+demo_kd: 0.0008
+demo_torque_limit: 0.040
+effort_limit: 0.060
+target_speed: 1.5
+action_timeout: 5.0

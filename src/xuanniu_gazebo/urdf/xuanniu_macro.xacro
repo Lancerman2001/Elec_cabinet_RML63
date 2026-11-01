@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="xn_color" params="link rgba specular:='0.2 0.2 0.2 1'">
+    <gazebo reference="${link}"><visual><material><ambient>${rgba}</ambient><diffuse>${rgba}</diffuse><specular>${specular}</specular></material></visual></gazebo>
+  </xacro:macro>
+  <xacro:macro name="selector_switch" params="parent prefix:=xuanniu_ robot_namespace:=/xuanniu enable_plugin:=true *origin">
+    <xacro:property name="d" value="${xacro.load_yaml('$(find xuanniu_gazebo)/config/model.yaml')}"/>
+    <xacro:property name="pivot" value="${d['frame_depth']}"/>
+    <link name="${prefix}frame_link">
+      <inertial><origin xyz="${pivot/2} 0 0"/><mass value="${d['frame_mass']}"/>
+        <inertia ixx="${d['frame_mass']*(d['frame_width']**2+d['frame_height']**2)/12}" ixy="0" ixz="0" iyy="${d['frame_mass']*(pivot**2+d['frame_height']**2)/12}" iyz="0" izz="${d['frame_mass']*(pivot**2+d['frame_width']**2)/12}"/>
+      </inertial>
+      <visual><geometry><mesh filename="package://xuanniu_gazebo/meshes/frame.stl"/></geometry><material name="black"><color rgba=".045 .050 .060 1"/></material></visual>
+      <collision><origin xyz="${pivot/2} 0 0"/><geometry><box size="${pivot} ${d['frame_width']} ${d['frame_height']}"/></geometry></collision>
+    </link>
+    <joint name="${prefix}mount_joint" type="fixed"><parent link="${parent}"/><child link="${prefix}frame_link"/><xacro:insert_block name="origin"/></joint>
+    <xacro:xn_color link="${prefix}frame_link" rgba=".045 .050 .060 1"/>
+    <link name="${prefix}nameplate_link">
+      <inertial><mass value=".001"/><inertia ixx="0.00000035" ixy="0" ixz="0" iyy="0.00000018" iyz="0" izz="0.00000017"/></inertial>
+      <visual><geometry><mesh filename="package://xuanniu_gazebo/meshes/nameplate.dae"/></geometry></visual>
+    </link>
+    <joint name="${prefix}nameplate_joint" type="fixed"><parent link="${prefix}frame_link"/><child link="${prefix}nameplate_link"/></joint>
+    <gazebo reference="${prefix}nameplate_joint"><preserveFixedJoint>true</preserveFixedJoint></gazebo>
+    <link name="${prefix}rotor_link">
+      <inertial><origin xyz=".013 0 0"/><mass value="${d['rotor_mass']}"/><inertia ixx="${d['rotor_ixx']}" ixy="0" ixz="0" iyy="${d['rotor_iyy']}" iyz="0" izz="${d['rotor_izz']}"/></inertial>
+      <visual><geometry><mesh filename="package://xuanniu_gazebo/meshes/rotor.dae"/></geometry></visual>
+      <collision><origin xyz="${d['shaft_length']/2} 0 0" rpy="0 ${pi/2} 0"/><geometry><cylinder radius="${d['shaft_diameter']/2}" length="${d['shaft_length']}"/></geometry></collision>
+      <collision><origin xyz="${d['shaft_length']+d['hub_depth']/2} 0 0" rpy="0 ${pi/2} 0"/><geometry><cylinder radius="${d['hub_diameter']/2}" length="${d['hub_depth']}"/></geometry></collision>
+      <xacro:property name="grip_x" value="${d['shaft_length']+d['hub_depth']+d['handle_depth']/2}"/>
+      <xacro:property name="wing_length" value="${(d['handle_length']-d['handle_center_width'])/2}"/>
+      <collision><origin xyz="${grip_x} 0 0"/><geometry><box size="${d['handle_depth']} ${d['handle_center_width']} ${d['handle_center_width']}"/></geometry></collision>
+      <collision><origin xyz="${grip_x} 0 ${d['handle_center_width']/2+wing_length/2}"/><geometry><box size="${d['handle_depth']} ${d['handle_tip_width']} ${wing_length}"/></geometry></collision>
+      <collision><origin xyz="${grip_x} 0 ${-d['handle_center_width']/2-wing_length/2}"/><geometry><box size="${d['handle_depth']} ${d['handle_tip_width']} ${wing_length}"/></geometry></collision>
+    </link>
+    <joint name="${prefix}selector_joint" type="revolute">
+      <parent link="${prefix}frame_link"/><child link="${prefix}rotor_link"/><origin xyz="${pivot} 0 0"/><axis xyz="1 0 0"/>
+      <limit lower="${-pi/4}" upper="${pi/4}" effort=".04" velocity="4"/><dynamics damping="0" friction="0"/>
+    </joint>
+    <gazebo reference="${prefix}rotor_link"><mu1>0.7</mu1><mu2>0.7</mu2><kp>100000</kp><kd>1</kd><minDepth>0.000001</minDepth><maxVel>0.01</maxVel></gazebo>
+    <xacro:if value="${enable_plugin}"><gazebo><plugin name="${prefix}control" filename="libxuanniu_selector_plugin.so">
+      <robotNamespace>${robot_namespace}</robotNamespace><jointName>${prefix}selector_joint</jointName>
+      <targetSpeed>${pi/2}</targetSpeed><positionGain>.035</positionGain><velocityGain>.00032</velocityGain><detentTorque>.0015</detentTorque>
+    </plugin></gazebo></xacro:if>
+  </xacro:macro>
+</robot>

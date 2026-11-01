@@ -1,0 +1,1885 @@
+{
+  "source_sha256": {
+    "total_cabinet_gazebo/config/layout.json": "7cd176dca9df45b20ce00fdc2a536deb5ed03f84f4e8fccce1e52464f57db442",
+    "total_cabinet_gazebo/scripts/build_cabinet.py": "4e41130f3af1b4ea8b4721f6a6899872994b791b4dbb1ac9b9e2ad4892b84e61",
+    "total_cabinet_gazebo/scripts/nameplates.py": "8077e5bf705a104a9359bdc66cfb6b9bb363bb66f6eae106c7d46a2d079c627a",
+    "electrical_cabinet_gazebo/mujoco/electrical_cabinet.xml": "cf4d94be5fd94a4a9ba28d18fe1948fa2c2f98ef9c4ab7bf651a846cce44fdd7",
+    "yaban_gazebo/mujoco/yaban_mujoco.xml": "a0999e79fa9d0a01e3e15a7e3f59b414a422f2e82f26dea10e4571b34df5a50e",
+    "yaban_gazebo/mujoco/assets/base_bridge.obj": "644a6ffd97f81f1886e46fcd11f6d9f49eb7987168fa972b2dae201d2b065e22",
+    "yaban_gazebo/mujoco/assets/blade.obj": "b71229e3b5a7dadc561dc2a2b639a3715d8b00bc7d3fc2f514c6b306d312b655",
+    "yaban_gazebo/mujoco/assets/washer.obj": "235f1c63fad15448b0f1af95f232a8e988a5f488ede88bdf0fbd94b6b015a36b",
+    "yaban_gazebo/mujoco/assets/nut_m4.obj": "14e8f4c04d0a28195a1d4757f025057f06e252cd4405f0fc4fa33eb6e13b15f1",
+    "xuanniu_gazebo/mujoco/xuanniu.xml": "4e18e31581b5dd8fa8a51c8e978973ce6c1674b3330e9036946ad8fceadd4a9f",
+    "xuanniu_gazebo/meshes/frame.stl": "beee02e00eff9f7e327b6a652b1817140fc9104be6c0c4ed37eb01486f0c083a",
+    "xuanniu_gazebo/materials/textures/nameplate.png": "00793bb0325b3da775f16c9f33a225a93e2b9d42bcd864ebce8f49d1b59087a8",
+    "xuanniu_gazebo/mujoco/meshes/shaft.obj": "e6045640aa753ab83a6fca3445384e800791d70d101e350449e5403d6f80c8ad",
+    "xuanniu_gazebo/mujoco/meshes/hub.obj": "59c223aaf3d4480ef8bf4d0c83e871912979c83114e0b298c1f594f6e5da4635",
+    "xuanniu_gazebo/mujoco/meshes/handle.obj": "4b78a0fd6002bab552e17417ff3d10c2843785bcb2238fd3ffd11bf7600f8cda",
+    "xuanniu_gazebo/mujoco/meshes/screw.obj": "ca09906ce6df5fae08b0823ea93ee416555274e63c0f2ef2e6f6bf70438d6bbd",
+    "xuanniu_gazebo/mujoco/meshes/slot.obj": "cabacdef3d6341c408d562798b585ce2df8b47478e5c55af31c86a8984e3823a",
+    "xuanniu_gazebo/mujoco/meshes/pointer.obj": "7acfeb2194c41f32e992c766b793a1b60ea44fa7a787763db1a46b8097604e89",
+    "IO_gazebo/mujoco/breaker.xml": "fb6c55c4b853a80b27a477820267c5f891abe87af97bded485d651a250425be3",
+    "IO_gazebo/meshes/arm.stl": "b547c4ca8370f66d2e71213e90384a2f79873c811f5ba26c196bda52fed8e15c",
+    "IO_gazebo/meshes/grip.stl": "efd93563b473d89ac538f036bf1380679f475885feefc9f1d8e6bfd5e8a4a78e",
+    "IO_gazebo/meshes/rib.stl": "85099b860585ad0faeb6a47ee364212cd04d189cf3127e63173d0b9df78fb85c",
+    "IO_gazebo/meshes/upper_shell.stl": "21595bc6efeb348413dbe538d7244ec59b09988950b8b8457e145c12f6ac91c6",
+    "fugui_gazebo/mujoco/fugui.xml": "cba26eb8b7338ac4d93d48626d25c0eb8c72691453b86a331e4f6406547ab9e1",
+    "fugui_gazebo/meshes/frame.stl": "0007c5f1823cad34a886d7138acc7cee4583312a36453c2327275cfca2875ed5",
+    "fugui_gazebo/meshes/guard_ring.stl": "13bd4f5e62f14d2b1fb5aa690cba6e18f326b15f5abb545eea7ea69af3723909",
+    "fugui_gazebo/meshes/insert.stl": "72a250f2c96928111203f70c5a2c48732d663396c0762635845561163017d91b",
+    "fugui_gazebo/meshes/label_recess.stl": "19e3a58957a4d847e60678c9db864d46a3d08a6f30bbf046acdc20c683b04b61",
+    "fugui_gazebo/mujoco/compat_meshes/cabinet_compat_nameplate.obj": "f73e02d1b16920506dae4adb35d6910dc72758dfdbae92b97252526909792bf6",
+    "fugui_gazebo/materials/textures/nameplate.png": "50d24861feec04ce3cc61f8c50ec1d028010a2a17942265f01bdc70283347ff8",
+    "fugui_gazebo/meshes/rear_sleeve.stl": "9aa79bd818398ad8fe53a6056e46e3d584a07dd021d6ed20d397c3a4779c466d",
+    "electrical_cabinet_gazebo/urdf/electrical_cabinet.urdf": "963fe008a3999a3d864ba2d7ed6d577aa4ede721704d75d777aade39a495dabe",
+    "yaban_gazebo/urdf/yaban.urdf": "f4a748704d918d9e7605aa58cfcfe6a81d42b660b4d8ea0eba5c6088ddba80b9",
+    "yaban_gazebo/meshes/base_bridge.stl": "bc7bfda4b62d47b58131f9699a5364a54a64acfac0c99ab901c4a1011993d0ad",
+    "yaban_gazebo/meshes/washer.stl": "82f231ae264822f07b6909221b0bae301e40970157ba575aa1d6b9b1ed648a5d",
+    "yaban_gazebo/meshes/nut_m4.stl": "138862964845c76364cbb9e3d40d13d6526bc620a3e74526577fd3767bc207fc",
+    "yaban_gazebo/meshes/blade.stl": "c4408d09d5bcf3ab929b2748b169339bbf02b5b8c2213e4bbc8dbc83b6e1fec2",
+    "xuanniu_gazebo/urdf/xuanniu.urdf": "5a4053868846f0482cf488e3c450c56d112f13f192ef98c491519a97e9c1c146",
+    "xuanniu_gazebo/meshes/nameplate.dae": "431205751420c4e3de1e928f71beff5e7da507a0d8014f387423a7c0f3d0663b",
+    "xuanniu_gazebo/meshes/rotor.dae": "c933ea7979a65e078d916123adc44bce20c8f30ee8906d5d5731939f68dc23e7",
+    "IO_gazebo/urdf/breaker.urdf": "781d3b418b73005bb5afb149c06f9eca958772b05f88d43f18a4a969130d1f20",
+    "fugui_gazebo/urdf/fugui.urdf": "a7ea70e5586bd4eeafb2e6c32ac3e9a5ec4a52d350617ffbb882d556c04c9d78",
+    "fugui_gazebo/meshes/nameplate.dae": "f109f39db6e57e3b302e407a5617d389877626ae26f7e163fb5b69553bfce690",
+    "total_cabinet_gazebo/assets/nameplates/1CLP1.dae": "3ebd4eaab2551b7ba70957a24d27397faed789b1c41664d01d2fb31bdf59cef1",
+    "total_cabinet_gazebo/assets/nameplates/1CLP1.png": "84e4ba2f901e641998cefb1c1ec79f6316fa11aa7c2359ac53ecf6e560660412",
+    "total_cabinet_gazebo/assets/nameplates/1CLP10.dae": "aa5fa0ee62d76a15296e8534bdea1d8b09a859f745889bb0b507b5fd86824dca",
+    "total_cabinet_gazebo/assets/nameplates/1CLP10.png": "3862199c1097bcc0e3705222c87b94ac36ed2706cbe04db9b191811bf5a30e0c",
+    "total_cabinet_gazebo/assets/nameplates/1CLP2.dae": "6717d0efdd0021905ef654ea817e13f57fd3f7c4fdb63f0a06a83a628999ef14",
+    "total_cabinet_gazebo/assets/nameplates/1CLP2.png": "9ada88fb8523bbbd1fc618948df67e5516c55a4bb5fe93fc1d49ebcb8b952f1a",
+    "total_cabinet_gazebo/assets/nameplates/1CLP3.dae": "445973e83ef6d8c406a5e971e647f46c078bdb049e49813caa725c43aeae71a3",
+    "total_cabinet_gazebo/assets/nameplates/1CLP3.png": "fd2e6b8e6c202b0dee5ddc48c7e688a4118c60c16a7b92ba9d8d3806fa6d0bf2",
+    "total_cabinet_gazebo/assets/nameplates/1CLP4.dae": "46bd5ec3cdab063be4e46976afd60af68ca84f60b09c91609ba6e0d3777ebe60",
+    "total_cabinet_gazebo/assets/nameplates/1CLP4.png": "992eb0417c8f418225d711119eda9901b5a254c4fce5e2956d10e76eb458ab9d",
+    "total_cabinet_gazebo/assets/nameplates/1CLP5.dae": "1524d7109a85f2ce9def018e4528d7ff8c17709003f6a0d6a742f68c621db43b",
+    "total_cabinet_gazebo/assets/nameplates/1CLP5.png": "c90ed30384baaa65cf55e5562e6ba31214eafc511bf70bad00a6bf50d64d7f12",
+    "total_cabinet_gazebo/assets/nameplates/1CLP6.dae": "40a7613187ef8eb6d40057d3faf0ea49794569ae90ef9913b0225ea5ad663d37",
+    "total_cabinet_gazebo/assets/nameplates/1CLP6.png": "57961a1de888cfd44b894209da8858847f8f8579a89795233fd20fb5a7f4f29e",
+    "total_cabinet_gazebo/assets/nameplates/1CLP7.dae": "90c4131c8d053be18e47b89754cfb2c3b0ff2ae7c002e13ab0d97bccad391e9d",
+    "total_cabinet_gazebo/assets/nameplates/1CLP7.png": "6d53a11af6ca282d47fe9ed80599551dd424176948e3a98c5f8a252346041512",
+    "total_cabinet_gazebo/assets/nameplates/1CLP8.dae": "271ad05494c38359edf89c1f55615da172b67d9d80815cff805db6aba2a2d08e",
+    "total_cabinet_gazebo/assets/nameplates/1CLP8.png": "82fa48f1c099fdd4f848a048966dc72b023fecf6d6536b7db9ba7fc46401d6bb",
+    "total_cabinet_gazebo/assets/nameplates/1CLP9.dae": "51043a8a589884ac621fb17338797526c7bcdbf0bb301a8fa243797a22070ed4",
+    "total_cabinet_gazebo/assets/nameplates/1CLP9.png": "7a9f4435628b30fd96f9ad331850a32d7e4c05361b409b25df7e254914409483",
+    "total_cabinet_gazebo/assets/nameplates/1FA.dae": "ac7088c8c51d73f16d95306664e630b86b64aeb6a1d210a3fe2d9a0ce9d0e75e",
+    "total_cabinet_gazebo/assets/nameplates/1FA.png": "d4f44b6b6b51b202a697f178b627e86f28f5c6dc4823fdb7d39d5f2df5b34daf",
+    "total_cabinet_gazebo/assets/nameplates/1LP1.dae": "850de67206ff8b87989cce3418142cef18341d5bbecf61d4fa9cf06c5298b9cf",
+    "total_cabinet_gazebo/assets/nameplates/1LP1.png": "e4e26a2ce984631562003450743e42aabeff737eacf0e2712fb03674c52b4539",
+    "total_cabinet_gazebo/assets/nameplates/1LP10.dae": "601e58a0b6b04b6afa9a1e4f97e10a3b7f39a4ae8dacabdd0cd4ebf412562362",
+    "total_cabinet_gazebo/assets/nameplates/1LP10.png": "568d8c6b40dac72abd035faeaa3031fb586b82652383b3fc6ed177a469a98a70",
+    "total_cabinet_gazebo/assets/nameplates/1LP11.dae": "17f5582c612e1a23787a5a082af1e0f0257b2188cb05b5ac12dbc41466ef035e",
+    "total_cabinet_gazebo/assets/nameplates/1LP11.png": "eb26413f7dcf91f0add3ae35ffa250083f9faed75ac4ec117038eba8e2771ff9",
+    "total_cabinet_gazebo/assets/nameplates/1LP12.dae": "4f19910011b4b7b0debe9b96b1a3f1b21925fe845d29efa0a1a69fb04667bf9a",
+    "total_cabinet_gazebo/assets/nameplates/1LP12.png": "e8d5cfe5f658d70a53d5a84f034fd7e755211dc9eef578acc3f3d4710d713c4e",
+    "total_cabinet_gazebo/assets/nameplates/1LP13.dae": "4d6963f967aa891da1fa1afb0fd60b0dedac5d6dc6f831331af578a568b6db85",
+    "total_cabinet_gazebo/assets/nameplates/1LP13.png": "55400110d67b745800807b9a64c208203e082887fe589775f93b4b0eb91ce544",
+    "total_cabinet_gazebo/assets/nameplates/1LP14.dae": "513a40a01de8db65530292385525681ff7755532f27a2972cb4ea95d2b9d3697",
+    "total_cabinet_gazebo/assets/nameplates/1LP14.png": "7e74417d6072e615dadfe753f6f5eef09653a28e41dedb55c84eec6d154fb41a",
+    "total_cabinet_gazebo/assets/nameplates/1LP15.dae": "a00693451c7c3fa00c1cbfbf65e5080e2377140a1c729262e0704218669c2016",
+    "total_cabinet_gazebo/assets/nameplates/1LP15.png": "698a727c62406fbf05adf2ffe0bdb4058c4a00cc3d4bc6f8d6d0f69545f8f4c5",
+    "total_cabinet_gazebo/assets/nameplates/1LP16.dae": "f758f574f55808e78f36bd8324e6ec339cd25deba727d3783cf21ad30636ec97",
+    "total_cabinet_gazebo/assets/nameplates/1LP16.png": "7955398e8d333f824e0d4cacca0ddb071d2a02526c3899b96479fb6a9087485d",
+    "total_cabinet_gazebo/assets/nameplates/1LP17.dae": "499207fe5c03b79b0326544a65a7995bcd8ba7ec7af1e9d0f25e0ab6069d196a",
+    "total_cabinet_gazebo/assets/nameplates/1LP17.png": "7b1db477fc846232f28972000a263c1ac9245fcb4ef18dac5464741107e017fb",
+    "total_cabinet_gazebo/assets/nameplates/1LP18.dae": "66fd4978bcb1c71549413a0564f26e72c1ff2a1c4d7de6e17f1ae7f65470bab6",
+    "total_cabinet_gazebo/assets/nameplates/1LP18.png": "9ae34e1b3ff87d6e9660652e61eabcdc930571f9f75cec5a53c449f87bbdc0b5",
+    "total_cabinet_gazebo/assets/nameplates/1LP19.dae": "7fd797217063647f46d9f7693db145e77ae9bf698fca14966d66d3573d2e296d",
+    "total_cabinet_gazebo/assets/nameplates/1LP19.png": "356f837b92a49aea6d61787a181456f28ae9dbe3e947867533c1e2a21ce5a8ae",
+    "total_cabinet_gazebo/assets/nameplates/1LP2.dae": "b279df89d7c350ae86f1c4aa1bb7ed460a13252ecf279aec2d50ecd8ac899594",
+    "total_cabinet_gazebo/assets/nameplates/1LP2.png": "b363f1a15866e083d79d20d8d444c5c84b26f1de56b97fcc15bfa33cb4c67018",
+    "total_cabinet_gazebo/assets/nameplates/1LP20.dae": "c30fc59b18efb0d5a9d612d03406ef13c1ce5f46f74d9c26142b9734e1450abe",
+    "total_cabinet_gazebo/assets/nameplates/1LP20.png": "a74f3fe20a7eae312cbf4b49d7d2d8d54dd96ba1b73f4bc5961204771aa306cf",
+    "total_cabinet_gazebo/assets/nameplates/1LP21.dae": "346e9e13f9bf16c45d93c6599088c8fba2bcb3a6e03f7e2df78eba0424da9dec",
+    "total_cabinet_gazebo/assets/nameplates/1LP21.png": "1e7e846b919084f59a4facad611ef9b9080da35e8e007aff2baebbab94df07b4",
+    "total_cabinet_gazebo/assets/nameplates/1LP22.dae": "760fe301e0dce9f065c62abb20f9b01983dcfb82f289316fad7103a459e286db",
+    "total_cabinet_gazebo/assets/nameplates/1LP22.png": "68befae9ee35cd9eecdeb6debe1bc8fabec7faad1c89944340c0597e416ada32",
+    "total_cabinet_gazebo/assets/nameplates/1LP23.dae": "7dd95d59d7df67e8f51b3e289e8ff54d8aa23f8af78ebc087391244374e3eb3e",
+    "total_cabinet_gazebo/assets/nameplates/1LP23.png": "bec697b2c8c526ac56c6fcfcea71fa5a544dee173009eac2901744fb59a11532",
+    "total_cabinet_gazebo/assets/nameplates/1LP24.dae": "ef619b18b612a61d4b8870f9d7d1ecd4f510f0ac976742990664f1db47d4e25d",
+    "total_cabinet_gazebo/assets/nameplates/1LP24.png": "842d3637022d8f6c0fe8da69b4d582ace9949a8417cdc8fff6d15eb38001b04d",
+    "total_cabinet_gazebo/assets/nameplates/1LP3.dae": "0a2ffd4684dbac9d6055bf869b224a7bc9ee1d5431450a2bb3442242bb9838a2",
+    "total_cabinet_gazebo/assets/nameplates/1LP3.png": "975667391d0df7a0b99312862e84558d919c88f386236accfa7b40c27f767c4f",
+    "total_cabinet_gazebo/assets/nameplates/1LP4.dae": "6bf141baec70bcbb62f19c16ff4b01af879167d3dd586e27434a6bb445da93f1",
+    "total_cabinet_gazebo/assets/nameplates/1LP4.png": "0cfbace6d82642462f79840325f99acbd2d62f83f073c982907e5b874926835d",
+    "total_cabinet_gazebo/assets/nameplates/1LP5.dae": "03efa3dc8255ba77ee47cf577e7b65a9a553a90fb731235138207196eef15927",
+    "total_cabinet_gazebo/assets/nameplates/1LP5.png": "995132c45671147399d791cbfcedbc0d6b437ee9fe5ba71e4aed81dabcca2070",
+    "total_cabinet_gazebo/assets/nameplates/1LP6.dae": "496e24c2378f85326c72c00f049c2078b0897d96cbb002d719af62dc22163c84",
+    "total_cabinet_gazebo/assets/nameplates/1LP6.png": "dd9a63f864d3b922db2f8319de9a47b99613f79372f967d25f0926954c8c3225",
+    "total_cabinet_gazebo/assets/nameplates/1LP7.dae": "52c262aaaac40c75935e065ffc5723357f891c21989309372a1329588d6d2044",
+    "total_cabinet_gazebo/assets/nameplates/1LP7.png": "d7c364412716d5d5ef3d558b2a23cd7b21f07512669f80493c07552137aec0ee",
+    "total_cabinet_gazebo/assets/nameplates/1LP8.dae": "33cc80f974df27aa222ae3208878c8a7a4c53f2fa2c17d435ffeba5945b00bbb",
+    "total_cabinet_gazebo/assets/nameplates/1LP8.png": "6acbc581a25177d64692db271ff2d6d714965ac26e5493ec4d4e3a8ca56c3310",
+    "total_cabinet_gazebo/assets/nameplates/1LP9.dae": "934a37cbdc16c720ce73096945920a6fbc665b887d89c51c53830e5681a0dc67",
+    "total_cabinet_gazebo/assets/nameplates/1LP9.png": "68974c34d35329596a38fbea1faa5b39ef69b1468ba2b5642f24ccac39c495ec",
+    "total_cabinet_gazebo/assets/nameplates/1QK.dae": "b4bddeadfdeac755f8e7a81ed60b567ada6f1a50a0f18ca9d87c98617ff7f263",
+    "total_cabinet_gazebo/assets/nameplates/1QK.png": "f057a7bbe8d173d460ffddd27bfc34bf0b76a975b873663bc92d2926d47a23a3",
+    "total_cabinet_gazebo/assets/nameplates/2FA.dae": "ea307a81d7d175846d743c4fd12fd1b49df3936b0691868d80ff66813e8d9b32",
+    "total_cabinet_gazebo/assets/nameplates/2FA.png": "053dcf9c1222fe90e58ae54cdbfc5191c9cf129a750a971f77f44586466d7392",
+    "total_cabinet_gazebo/assets/nameplates/2QK.dae": "909129ec788eaac975f7eaaf4920ebd6de5594beccc4fa15fd50e0189ff17d44",
+    "total_cabinet_gazebo/assets/nameplates/2QK.png": "683bec8aace500c6ba04c65ccb2bdc6343147e72abb60103a20319796f0e67ab",
+    "total_cabinet_gazebo/assets/nameplates/3FA.dae": "9627faf0d22dc21903fd4f7b483182180fcb54c2268848ad3605505e8931f57e",
+    "total_cabinet_gazebo/assets/nameplates/3FA.png": "d4bc7fb1c97a21ad8ab2ab604265fb2d525449a8b32a41fd149578f5b1d4f6f3",
+    "total_cabinet_gazebo/assets/nameplates/3QK.dae": "931691e1d4f8d42e2d46c81f7e9cda967761e0cb5df61e07b6f4638752ac969f",
+    "total_cabinet_gazebo/assets/nameplates/3QK.png": "b71f96669c303f9ae73081d8eb863806ba7000a9e8227dc2097107f61ad7ce68",
+    "total_cabinet_gazebo/assets/nameplates/font_provenance.json": "6d6c9191e31548d7599a3a0c82167a461e5352b5b7cd6bf2515fd010e11014d8",
+    "yaban_gazebo/mujoco/yaban_mujoco_protocol.py": "d2f40ef2788f7f4c5b46b4a7a04bdbf17fdaefdeac2d41aecd9b303771ccf07e",
+    "electrical_cabinet_gazebo/mujoco/door_close_protocol.py": "690e3aec41c917b3d44e87b6262b3ef376d9955f3671ba0fbffeb50c405424ef",
+    "fugui_gazebo/mujoco/tk_runtime.py": "816e2a50ac04169cb9bb13237707da1bb098cdca6a646ea743d6b81db377fa61",
+    "IO_gazebo/mujoco/image_utils.py": "5bcd70dea644cfb1fae5c2cbe85c8e537187f99c48e36e8f84631bb2a5c95f9e",
+    "xuanniu_gazebo/LICENSE": "b206271b81d3560c20ec5e8e2207816053827dfac655896bd7da5d2a46fc55be",
+    "IO_gazebo/mujoco/breaker_backend.py": "b76d06fe8c02886e4a07ad170f7ec56f9d83d98591730fde81a385f1d427c7cb",
+    "fugui_gazebo/mujoco/fugui_backend.py": "f7e7468d3b2a968e76a44dc448bc1be1eaef87bbf977089b95800a420981537f",
+    "xuanniu_gazebo/mujoco/selector_backend.py": "9e84f624327d04b2ab4cc9cfa9c28e2c37e0377e03e571dc3d166ef92c2d9fa8",
+    "yaban_gazebo/mujoco/yaban_mujoco.py": "c4d85036228d46ce46abdd8c81a695534a31c417a2345fee7595df21696250f7",
+    "electrical_cabinet_gazebo/mujoco/view_electrical_cabinet.py": "13f1e310ffc8f550f5e42ad94dc77bef4f5d2cd316d2be8a14e711392c961989"
+  },
+  "instances": [
+    {
+      "kind": "yaban",
+      "name": "yaban_r1_c1",
+      "u": 0.148,
+      "v": 0.38,
+      "pos": [
+        0.2,
+        -0.212,
+        0.505
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 3,
+      "nameplate": {
+        "code": "1LP17",
+        "center_m": [
+          0.2025,
+          -0.212,
+          0.4625
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.21875,
+            0.48250000000000004
+          ],
+          [
+            0.22904000000000002,
+            -0.20525,
+            0.5275000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP17.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r1_c2",
+      "u": 0.20299999999999999,
+      "v": 0.38,
+      "pos": [
+        0.2,
+        -0.157,
+        0.505
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 3,
+      "nameplate": {
+        "code": "1LP18",
+        "center_m": [
+          0.2025,
+          -0.157,
+          0.4625
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.16375,
+            0.48250000000000004
+          ],
+          [
+            0.22904000000000002,
+            -0.15025,
+            0.5275000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP18.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r1_c3",
+      "u": 0.258,
+      "v": 0.38,
+      "pos": [
+        0.2,
+        -0.10199999999999998,
+        0.505
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 3,
+      "nameplate": {
+        "code": "1LP19",
+        "center_m": [
+          0.2025,
+          -0.102,
+          0.4625
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.10875,
+            0.48250000000000004
+          ],
+          [
+            0.22904000000000002,
+            -0.09524999999999999,
+            0.5275000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP19.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r1_c4",
+      "u": 0.313,
+      "v": 0.38,
+      "pos": [
+        0.2,
+        -0.046999999999999986,
+        0.505
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 3,
+      "nameplate": {
+        "code": "1LP20",
+        "center_m": [
+          0.2025,
+          -0.047,
+          0.4625
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.05375,
+            0.48250000000000004
+          ],
+          [
+            0.22904000000000002,
+            -0.040249999999999994,
+            0.5275000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP20.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r1_c5",
+      "u": 0.368,
+      "v": 0.38,
+      "pos": [
+        0.2,
+        0.008000000000000007,
+        0.505
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 3,
+      "nameplate": {
+        "code": "1LP21",
+        "center_m": [
+          0.2025,
+          0.008,
+          0.4625
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.0012499999999999985,
+            0.48250000000000004
+          ],
+          [
+            0.22904000000000002,
+            0.014750000000000003,
+            0.5275000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP21.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r1_c6",
+      "u": 0.42300000000000004,
+      "v": 0.38,
+      "pos": [
+        0.2,
+        0.06300000000000006,
+        0.505
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 3,
+      "nameplate": {
+        "code": "1LP22",
+        "center_m": [
+          0.2025,
+          0.063,
+          0.4625
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.05625,
+            0.48250000000000004
+          ],
+          [
+            0.22904000000000002,
+            0.06975,
+            0.5275000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP22.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r1_c7",
+      "u": 0.478,
+      "v": 0.38,
+      "pos": [
+        0.2,
+        0.118,
+        0.505
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 3,
+      "nameplate": {
+        "code": "1LP23",
+        "center_m": [
+          0.2025,
+          0.118,
+          0.4625
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.11124999999999999,
+            0.48250000000000004
+          ],
+          [
+            0.22904000000000002,
+            0.12475,
+            0.5275000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP23.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r1_c8",
+      "u": 0.533,
+      "v": 0.38,
+      "pos": [
+        0.2,
+        0.17300000000000004,
+        0.505
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 3,
+      "nameplate": {
+        "code": "1LP24",
+        "center_m": [
+          0.2025,
+          0.173,
+          0.4625
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.16624999999999998,
+            0.48250000000000004
+          ],
+          [
+            0.22904000000000002,
+            0.17975,
+            0.5275000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP24.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r2_c1",
+      "u": 0.148,
+      "v": 0.515,
+      "pos": [
+        0.2,
+        -0.212,
+        0.64
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 2,
+      "nameplate": {
+        "code": "1LP9",
+        "center_m": [
+          0.2025,
+          -0.212,
+          0.5974999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.21875,
+            0.6174999999999999
+          ],
+          [
+            0.22904000000000002,
+            -0.20525,
+            0.6625000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP9.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r2_c2",
+      "u": 0.20299999999999999,
+      "v": 0.515,
+      "pos": [
+        0.2,
+        -0.157,
+        0.64
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 2,
+      "nameplate": {
+        "code": "1LP10",
+        "center_m": [
+          0.2025,
+          -0.157,
+          0.5974999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.16375,
+            0.6174999999999999
+          ],
+          [
+            0.22904000000000002,
+            -0.15025,
+            0.6625000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP10.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r2_c3",
+      "u": 0.258,
+      "v": 0.515,
+      "pos": [
+        0.2,
+        -0.10199999999999998,
+        0.64
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 2,
+      "nameplate": {
+        "code": "1LP11",
+        "center_m": [
+          0.2025,
+          -0.102,
+          0.5974999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.10875,
+            0.6174999999999999
+          ],
+          [
+            0.22904000000000002,
+            -0.09524999999999999,
+            0.6625000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP11.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r2_c4",
+      "u": 0.313,
+      "v": 0.515,
+      "pos": [
+        0.2,
+        -0.046999999999999986,
+        0.64
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 2,
+      "nameplate": {
+        "code": "1LP12",
+        "center_m": [
+          0.2025,
+          -0.047,
+          0.5974999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.05375,
+            0.6174999999999999
+          ],
+          [
+            0.22904000000000002,
+            -0.040249999999999994,
+            0.6625000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP12.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r2_c5",
+      "u": 0.368,
+      "v": 0.515,
+      "pos": [
+        0.2,
+        0.008000000000000007,
+        0.64
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 2,
+      "nameplate": {
+        "code": "1LP13",
+        "center_m": [
+          0.2025,
+          0.008,
+          0.5974999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.0012499999999999985,
+            0.6174999999999999
+          ],
+          [
+            0.22904000000000002,
+            0.014750000000000003,
+            0.6625000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP13.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r2_c6",
+      "u": 0.42300000000000004,
+      "v": 0.515,
+      "pos": [
+        0.2,
+        0.06300000000000006,
+        0.64
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 2,
+      "nameplate": {
+        "code": "1LP14",
+        "center_m": [
+          0.2025,
+          0.063,
+          0.5974999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.05625,
+            0.6174999999999999
+          ],
+          [
+            0.22904000000000002,
+            0.06975,
+            0.6625000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP14.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r2_c7",
+      "u": 0.478,
+      "v": 0.515,
+      "pos": [
+        0.2,
+        0.118,
+        0.64
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 2,
+      "nameplate": {
+        "code": "1LP15",
+        "center_m": [
+          0.2025,
+          0.118,
+          0.5974999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.11124999999999999,
+            0.6174999999999999
+          ],
+          [
+            0.22904000000000002,
+            0.12475,
+            0.6625000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP15.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r2_c8",
+      "u": 0.533,
+      "v": 0.515,
+      "pos": [
+        0.2,
+        0.17300000000000004,
+        0.64
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 2,
+      "nameplate": {
+        "code": "1LP16",
+        "center_m": [
+          0.2025,
+          0.173,
+          0.5974999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.16624999999999998,
+            0.6174999999999999
+          ],
+          [
+            0.22904000000000002,
+            0.17975,
+            0.6625000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP16.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r3_c1",
+      "u": 0.148,
+      "v": 0.65,
+      "pos": [
+        0.2,
+        -0.212,
+        0.775
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 1,
+      "nameplate": {
+        "code": "1LP1",
+        "center_m": [
+          0.2025,
+          -0.212,
+          0.7324999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.21875,
+            0.7525
+          ],
+          [
+            0.22904000000000002,
+            -0.20525,
+            0.7975000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP1.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r3_c2",
+      "u": 0.20299999999999999,
+      "v": 0.65,
+      "pos": [
+        0.2,
+        -0.157,
+        0.775
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 1,
+      "nameplate": {
+        "code": "1LP2",
+        "center_m": [
+          0.2025,
+          -0.157,
+          0.7324999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.16375,
+            0.7525
+          ],
+          [
+            0.22904000000000002,
+            -0.15025,
+            0.7975000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP2.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r3_c3",
+      "u": 0.258,
+      "v": 0.65,
+      "pos": [
+        0.2,
+        -0.10199999999999998,
+        0.775
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 1,
+      "nameplate": {
+        "code": "1LP3",
+        "center_m": [
+          0.2025,
+          -0.102,
+          0.7324999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.10875,
+            0.7525
+          ],
+          [
+            0.22904000000000002,
+            -0.09524999999999999,
+            0.7975000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP3.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r3_c4",
+      "u": 0.313,
+      "v": 0.65,
+      "pos": [
+        0.2,
+        -0.046999999999999986,
+        0.775
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 1,
+      "nameplate": {
+        "code": "1LP4",
+        "center_m": [
+          0.2025,
+          -0.047,
+          0.7324999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            -0.05375,
+            0.7525
+          ],
+          [
+            0.22904000000000002,
+            -0.040249999999999994,
+            0.7975000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP4.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r3_c5",
+      "u": 0.368,
+      "v": 0.65,
+      "pos": [
+        0.2,
+        0.008000000000000007,
+        0.775
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 1,
+      "nameplate": {
+        "code": "1LP5",
+        "center_m": [
+          0.2025,
+          0.008,
+          0.7324999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.0012499999999999985,
+            0.7525
+          ],
+          [
+            0.22904000000000002,
+            0.014750000000000003,
+            0.7975000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP5.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r3_c6",
+      "u": 0.42300000000000004,
+      "v": 0.65,
+      "pos": [
+        0.2,
+        0.06300000000000006,
+        0.775
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 1,
+      "nameplate": {
+        "code": "1LP6",
+        "center_m": [
+          0.2025,
+          0.063,
+          0.7324999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.05625,
+            0.7525
+          ],
+          [
+            0.22904000000000002,
+            0.06975,
+            0.7975000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP6.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r3_c7",
+      "u": 0.478,
+      "v": 0.65,
+      "pos": [
+        0.2,
+        0.118,
+        0.775
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 1,
+      "nameplate": {
+        "code": "1LP7",
+        "center_m": [
+          0.2025,
+          0.118,
+          0.7324999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.11124999999999999,
+            0.7525
+          ],
+          [
+            0.22904000000000002,
+            0.12475,
+            0.7975000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP7.png"
+      }
+    },
+    {
+      "kind": "yaban",
+      "name": "yaban_r3_c8",
+      "u": 0.533,
+      "v": 0.65,
+      "pos": [
+        0.2,
+        0.17300000000000004,
+        0.775
+      ],
+      "rpy": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "row_from_top": 1,
+      "nameplate": {
+        "code": "1LP8",
+        "center_m": [
+          0.2025,
+          0.173,
+          0.7324999999999999
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.1685,
+            0.16624999999999998,
+            0.7525
+          ],
+          [
+            0.22904000000000002,
+            0.17975,
+            0.7975000000000001
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1LP8.png"
+      }
+    },
+    {
+      "kind": "selector",
+      "name": "selector_01",
+      "u": 0.22,
+      "v": 1.19,
+      "pos": [
+        0.2,
+        -0.13999999999999999,
+        1.315
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1QK",
+        "center_m": [
+          0.2025,
+          -0.14,
+          1.2705000006407499
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.19999999994224357,
+            -0.16400000020861627,
+            1.2905000006407499
+          ],
+          [
+            0.23304000084123136,
+            -0.11599999979138376,
+            1.33949999935925
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1QK.png"
+      }
+    },
+    {
+      "kind": "selector",
+      "name": "selector_02",
+      "u": 0.3425,
+      "v": 1.19,
+      "pos": [
+        0.2,
+        -0.01749999999999996,
+        1.315
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "2QK",
+        "center_m": [
+          0.2025,
+          -0.0175,
+          1.2705000006407499
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.19999999994224357,
+            -0.04150000020861626,
+            1.2905000006407499
+          ],
+          [
+            0.23304000084123136,
+            0.006500000208616255,
+            1.33949999935925
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/2QK.png"
+      }
+    },
+    {
+      "kind": "selector",
+      "name": "selector_03",
+      "u": 0.46499999999999997,
+      "v": 1.19,
+      "pos": [
+        0.2,
+        0.10499999999999998,
+        1.315
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "3QK",
+        "center_m": [
+          0.2025,
+          0.10499999999999998,
+          1.2705000006407499
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.19999999994224357,
+            0.08099999979138374,
+            1.2905000006407499
+          ],
+          [
+            0.23304000084123136,
+            0.12900000020861624,
+            1.33949999935925
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/3QK.png"
+      }
+    },
+    {
+      "kind": "breaker",
+      "name": "breaker_01",
+      "u": 0.126,
+      "v": 0.88,
+      "pos": [
+        0.2,
+        -0.23399999999999999,
+        1.005
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1CLP1",
+        "center_m": [
+          0.2025,
+          -0.23400000000000004,
+          0.9624760397768048
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.2,
+            -0.25150000000000006,
+            0.9824760397768049
+          ],
+          [
+            0.23113862457676804,
+            -0.2165,
+            1.0275000001054357
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1CLP1.png"
+      }
+    },
+    {
+      "kind": "breaker",
+      "name": "breaker_02",
+      "u": 0.178,
+      "v": 0.88,
+      "pos": [
+        0.2,
+        -0.182,
+        1.005
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1CLP2",
+        "center_m": [
+          0.2025,
+          -0.182,
+          0.9624760397768048
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.2,
+            -0.1995,
+            0.9824760397768049
+          ],
+          [
+            0.23113862457676804,
+            -0.16449999999999998,
+            1.0275000001054357
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1CLP2.png"
+      }
+    },
+    {
+      "kind": "breaker",
+      "name": "breaker_03",
+      "u": 0.22999999999999998,
+      "v": 0.88,
+      "pos": [
+        0.2,
+        -0.13,
+        1.005
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1CLP3",
+        "center_m": [
+          0.2025,
+          -0.13,
+          0.9624760397768048
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.2,
+            -0.14750000000000002,
+            0.9824760397768049
+          ],
+          [
+            0.23113862457676804,
+            -0.1125,
+            1.0275000001054357
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1CLP3.png"
+      }
+    },
+    {
+      "kind": "breaker",
+      "name": "breaker_04",
+      "u": 0.28200000000000003,
+      "v": 0.88,
+      "pos": [
+        0.2,
+        -0.07799999999999996,
+        1.005
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1CLP4",
+        "center_m": [
+          0.2025,
+          -0.078,
+          0.9624760397768048
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.2,
+            -0.0955,
+            0.9824760397768049
+          ],
+          [
+            0.23113862457676804,
+            -0.0605,
+            1.0275000001054357
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1CLP4.png"
+      }
+    },
+    {
+      "kind": "breaker",
+      "name": "breaker_05",
+      "u": 0.33399999999999996,
+      "v": 0.88,
+      "pos": [
+        0.2,
+        -0.026000000000000023,
+        1.005
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1CLP5",
+        "center_m": [
+          0.2025,
+          -0.025999999999999995,
+          0.9624760397768048
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.2,
+            -0.0435,
+            0.9824760397768049
+          ],
+          [
+            0.23113862457676804,
+            -0.008499999999999995,
+            1.0275000001054357
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1CLP5.png"
+      }
+    },
+    {
+      "kind": "breaker",
+      "name": "breaker_06",
+      "u": 0.386,
+      "v": 0.88,
+      "pos": [
+        0.2,
+        0.026000000000000023,
+        1.005
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1CLP6",
+        "center_m": [
+          0.2025,
+          0.025999999999999995,
+          0.9624760397768048
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.2,
+            0.008499999999999995,
+            0.9824760397768049
+          ],
+          [
+            0.23113862457676804,
+            0.0435,
+            1.0275000001054357
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1CLP6.png"
+      }
+    },
+    {
+      "kind": "breaker",
+      "name": "breaker_07",
+      "u": 0.438,
+      "v": 0.88,
+      "pos": [
+        0.2,
+        0.07800000000000001,
+        1.005
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1CLP7",
+        "center_m": [
+          0.2025,
+          0.078,
+          0.9624760397768048
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.2,
+            0.0605,
+            0.9824760397768049
+          ],
+          [
+            0.23113862457676804,
+            0.0955,
+            1.0275000001054357
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1CLP7.png"
+      }
+    },
+    {
+      "kind": "breaker",
+      "name": "breaker_08",
+      "u": 0.49,
+      "v": 0.88,
+      "pos": [
+        0.2,
+        0.13,
+        1.005
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1CLP8",
+        "center_m": [
+          0.2025,
+          0.13,
+          0.9624760397768048
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.2,
+            0.1125,
+            0.9824760397768049
+          ],
+          [
+            0.23113862457676804,
+            0.14750000000000002,
+            1.0275000001054357
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1CLP8.png"
+      }
+    },
+    {
+      "kind": "breaker",
+      "name": "breaker_09",
+      "u": 0.542,
+      "v": 0.88,
+      "pos": [
+        0.2,
+        0.18200000000000005,
+        1.005
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1CLP9",
+        "center_m": [
+          0.2025,
+          0.182,
+          0.9624760397768048
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.2,
+            0.16449999999999998,
+            0.9824760397768049
+          ],
+          [
+            0.23113862457676804,
+            0.1995,
+            1.0275000001054357
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1CLP9.png"
+      }
+    },
+    {
+      "kind": "breaker",
+      "name": "breaker_10",
+      "u": 0.594,
+      "v": 0.88,
+      "pos": [
+        0.2,
+        0.23399999999999999,
+        1.005
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1CLP10",
+        "center_m": [
+          0.2025,
+          0.23400000000000004,
+          0.9624760397768048
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.2,
+            0.2165,
+            0.9824760397768049
+          ],
+          [
+            0.23113862457676804,
+            0.25150000000000006,
+            1.0275000001054357
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1CLP10.png"
+      }
+    },
+    {
+      "kind": "reset",
+      "name": "reset_01",
+      "u": 0.648,
+      "v": 1.01,
+      "pos": [
+        0.2,
+        0.28800000000000003,
+        1.135
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "3FA",
+        "center_m": [
+          0.2025,
+          0.288,
+          1.0774999985098839
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.19999999989186104,
+            0.25299999985098837,
+            1.097499998509884
+          ],
+          [
+            0.22200000016183247,
+            0.3230000001490116,
+            1.1725000014901161
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/3FA.png"
+      }
+    },
+    {
+      "kind": "reset",
+      "name": "reset_02",
+      "u": 0.648,
+      "v": 1.16,
+      "pos": [
+        0.2,
+        0.28800000000000003,
+        1.285
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "2FA",
+        "center_m": [
+          0.2025,
+          0.288,
+          1.2274999985098838
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.19999999989186104,
+            0.25299999985098837,
+            1.2474999985098838
+          ],
+          [
+            0.22200000016183247,
+            0.3230000001490116,
+            1.322500001490116
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/2FA.png"
+      }
+    },
+    {
+      "kind": "reset",
+      "name": "reset_03",
+      "u": 0.648,
+      "v": 1.49,
+      "pos": [
+        0.2,
+        0.28800000000000003,
+        1.615
+      ],
+      "rpy": [
+        0,
+        0,
+        0
+      ],
+      "nameplate": {
+        "code": "1FA",
+        "center_m": [
+          0.2025,
+          0.288,
+          1.5574999985098839
+        ],
+        "size_xyz_m": [
+          0.005,
+          0.048,
+          0.012
+        ],
+        "component_bounds_m": [
+          [
+            0.19999999989186104,
+            0.25299999985098837,
+            1.5774999985098839
+          ],
+          [
+            0.22200000016183247,
+            0.3230000001490116,
+            1.652500001490116
+          ]
+        ],
+        "boundary_reference": "visible assembly at initial_open, excluding indicator lamp",
+        "texture": "assets/nameplates/1FA.png"
+      }
+    }
+  ],
+  "panel_tiles": 65
+}

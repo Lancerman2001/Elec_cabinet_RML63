@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<sdf version="1.6"><world name="default">
+  <physics name="small_parts" type="ode"><max_step_size>0.001</max_step_size><real_time_update_rate>1000</real_time_update_rate>
+    <ode><solver><type>quick</type><iters>100</iters></solver><constraints><cfm>0</cfm><erp>0.2</erp><contact_max_correcting_vel>0.02</contact_max_correcting_vel><contact_surface_layer>0.000001</contact_surface_layer></constraints></ode>
+  </physics>
+  <scene><ambient>0.65 0.65 0.65 1</ambient><background>0.12 0.16 0.20 1</background><shadows>true</shadows></scene>
+  <light name="key" type="directional"><diffuse>.75 .75 .75 1</diffuse><specular>.3 .3 .3 1</specular><direction>-.7 .3 -.7</direction><cast_shadows>true</cast_shadows></light>
+  <light name="fill" type="directional"><diffuse>.25 .25 .25 1</diffuse><direction>-.6 -.6 .2</direction><cast_shadows>false</cast_shadows></light>
+  <gui fullscreen="false"><camera name="user_camera"><pose>.145 -.085 .175 0 .34 2.57</pose><view_controller>orbit</view_controller><projection_type>perspective</projection_type><clip><near>.001</near><far>100</far></clip></camera></gui>
+</world></sdf>
